@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VANE · A considered Mediterranean</title>
+<meta name="description" content="VANE is an independent Mediterranean luxury hotel and restaurant review title. No scores. The curation is the verdict." />
+<meta name="theme-color" content="#07070a" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #07070a;
+    --bg-2: #0b0b11;
+    --ink: #f4f0ea;
+    --ink-soft: rgba(244, 240, 234, 0.62);
+    --ink-faint: rgba(244, 240, 234, 0.34);
+    --red: #e4483f;
+    --red-soft: rgba(228, 72, 63, 0.16);
+    --line: rgba(244, 240, 234, 0.1);
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans: "Inter", system-ui, -apple-system, sans-serif;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --pad: clamp(1.15rem, 5vw, 4.5rem);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ---------- Spatial background ---------- */
+  .space {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background:
+      radial-gradient(120% 90% at 50% -10%, #101018 0%, #07070a 55%, #050507 100%);
+  }
+  .mesh {
+    position: fixed;
+    inset: -20%;
+    z-index: -2;
+    filter: blur(90px) saturate(140%);
+    opacity: 0.6;
+    background:
+      radial-gradient(30% 30% at 22% 30%, rgba(228, 72, 63, 0.28), transparent 60%),
+      radial-gradient(28% 28% at 78% 24%, rgba(90, 120, 220, 0.22), transparent 60%),
+      radial-gradient(34% 34% at 66% 78%, rgba(210, 140, 80, 0.2), transparent 60%),
+      radial-gradient(26% 26% at 30% 82%, rgba(120, 90, 200, 0.18), transparent 60%);
+    animation: meshDrift 26s var(--ease) infinite alternate;
+  }
+  @keyframes meshDrift {
+    0%   { transform: translate3d(0,0,0) scale(1); }
+    50%  { transform: translate3d(2%, -1.5%, 0) scale(1.08); }
+    100% { transform: translate3d(-2%, 1.5%, 0) scale(1.04); }
+  }
+  #stars { position: fixed; inset: 0; z-index: -2; pointer-events: none; }
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.045;
+    mix-blend-mode: screen;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Nav pill ---------- */
+  header {
+    position: fixed;
+    top: clamp(0.75rem, 2vw, 1.4rem);
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    padding: 0 1rem;
+    pointer-events: none;
+  }
+  .pill {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: clamp(0.5rem, 2vw, 1.6rem);
+    padding: 0.55rem 0.7rem 0.55rem 1.2rem;
+    border-radius: 999px;
+    background: rgba(16, 16, 22, 0.55);
+    border: 1px solid var(--line);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+    max-width: 100%;
+  }
+  .brand {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 1.15rem;
+    letter-spacing: 0.18em;
+    padding-right: 0.4rem;
+  }
+  .brand .dot { color: var(--red); }
+  .pill nav {
+    display: flex;
+    gap: clamp(0.3rem, 1.5vw, 1.1rem);
+  }
+  .pill nav a {
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-soft);
+    padding: 0.35rem 0.55rem;
+    border-radius: 999px;
+    transition: color 0.3s var(--ease), background 0.3s var(--ease);
+    white-space: nowrap;
+  }
+  .pill nav a:hover { color: var(--ink); background: rgba(244,240,234,0.06); }
+  .pill .cta {
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    background: var(--red);
+    color: #fff;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  }
+  .pill .cta:hover { box-shadow: 0 8px 26px rgba(228,72,63,0.4); }
+  .menu-toggle { display: none; }
+
+  /* ---------- Layout ---------- */
+  main { position: relative; z-index: 1; }
+  section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 22px; height: 1px;
+    background: var(--red);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 7rem;
+    position: relative;
+  }
+  .orb-stage {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -54%);
+    width: clamp(280px, 44vw, 560px);
+    aspect-ratio: 1;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .orb {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background:
+      radial-gradient(38% 34% at 34% 30%, rgba(255,255,255,0.9), transparent 60%),
+      radial-gradient(50% 50% at 68% 34%, rgba(228,72,63,0.85), transparent 62%),
+      radial-gradient(60% 60% at 30% 72%, rgba(80,120,230,0.8), transparent 60%),
+      radial-gradient(55% 55% at 72% 74%, rgba(240,170,90,0.75), transparent 60%),
+      radial-gradient(70% 70% at 50% 50%, rgba(120,80,200,0.6), transparent 70%),
+      conic-gradient(from 210deg, #e4483f, #7a5ac8, #4f78e6, #f0aa5a, #e4483f);
+    background-blend-mode: screen;
+    filter: blur(2px) saturate(150%);
+    box-shadow:
+      inset -30px -40px 90px rgba(0,0,0,0.55),
+      inset 30px 30px 80px rgba(255,255,255,0.25),
+      0 40px 120px rgba(228,72,63,0.28),
+      0 20px 80px rgba(80,120,230,0.24);
+    animation: orbFloat 12s var(--ease) infinite alternate, orbSpin 40s linear infinite;
+  }
+  .orb::after {
+    content: "";
+    position: absolute;
+    inset: 8%;
+    border-radius: 50%;
+    background: radial-gradient(40% 32% at 38% 28%, rgba(255,255,255,0.7), transparent 55%);
+    mix-blend-mode: screen;
+    filter: blur(6px);
+  }
+  .orb-halo {
+    position: absolute;
+    inset: -18%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(228,72,63,0.16), transparent 72%);
+    filter: blur(30px);
+    animation: orbFloat 12s var(--ease) infinite alternate;
+  }
+  @keyframes orbFloat {
+    0%   { transform: translateY(-2%); }
+    100% { transform: translateY(4%); }
+  }
+  @keyframes orbSpin {
+    to { filter: blur(2px) saturate(150%) hue-rotate(360deg); }
+  }
+
+  .hero-content { position: relative; z-index: 2; }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-optical-sizing: auto;
+    font-size: clamp(2.9rem, 9vw, 7.6rem);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    margin: 1.6rem 0 0;
+    background: linear-gradient(180deg, #fff 0%, rgba(244,240,234,0.72) 60%, rgba(244,240,234,0.32) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero h1 em { font-style: italic; color: var(--red); -webkit-text-fill-color: var(--red); }
+  .hero .sub {
+    max-width: 34ch;
+    margin: 1.6rem auto 0;
+    color: var(--ink-soft);
+    font-size: clamp(0.98rem, 1.6vw, 1.15rem);
+  }
+  .hero-actions {
+    margin-top: 2.4rem;
+    display: flex;
+    gap: 0.9rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.9rem 1.5rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: transform 0.35s var(--ease), background 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+    will-change: transform;
+  }
+  .btn-primary { background: var(--red); color: #fff; box-shadow: 0 12px 34px rgba(228,72,63,0.32); }
+  .btn-primary:hover { box-shadow: 0 18px 46px rgba(228,72,63,0.46); }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  .btn-ghost:hover { border-color: rgba(244,240,234,0.4); background: rgba(244,240,234,0.04); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem; left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .scroll-hint span.line {
+    width: 1px; height: 36px;
+    background: linear-gradient(var(--ink-faint), transparent);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+  /* ---------- Manifesto strip ---------- */
+  .manifesto {
+    text-align: center;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .manifesto p {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(1.5rem, 4.4vw, 3rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    max-width: 20ch;
+    margin: 0.8rem auto 0;
+  }
+  .manifesto p b { color: var(--red); font-weight: 400; font-style: italic; }
+
+  /* ---------- Collection ---------- */
+  .sec-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.8rem;
+  }
+  .sec-head h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin-top: 0.9rem;
+  }
+  .sec-head .link {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.3rem;
+    transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+  }
+  .sec-head .link:hover { color: var(--red); border-color: var(--red); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(0.8rem, 1.6vw, 1.3rem);
+  }
+  .card {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: flex-end;
+    padding: 1.2rem;
+    isolation: isolate;
+    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+    will-change: transform;
+  }
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    transition: transform 0.9s var(--ease);
+  }
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, transparent 30%, rgba(5,5,7,0.72) 100%);
+  }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 26px 60px rgba(0,0,0,0.5); }
+  .card:hover::before { transform: scale(1.08); }
+  .c1::before { background: linear-gradient(150deg, #1b2740, #4f78e6 60%, #86b3ff); }
+  .c2::before { background: linear-gradient(150deg, #2a1a24, #e4483f 55%, #f0aa5a); }
+  .c3::before { background: linear-gradient(150deg, #17231d, #3f7d5c 55%, #a9d6b0); }
+  .c4::before { background: linear-gradient(150deg, #241a30, #7a5ac8 55%, #c9a0ff); }
+  .card .meta { position: relative; }
+  .card .region {
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.72);
+  }
+  .card .name {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-top: 0.2rem;
+    color: #fff;
+  }
+  .card .kind { font-size: 0.8rem; color: rgba(255,255,255,0.7); margin-top: 0.15rem; }
+
+  /* ---------- Bearings ---------- */
+  .bearings { border-top: 1px solid var(--line); }
+  .journal {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2.4vw, 2.2rem);
+  }
+  .entry {
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--line);
+    transition: border-color 0.4s var(--ease);
+  }
+  .entry:hover { border-color: var(--red); }
+  .entry .tag { font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--red); }
+  .entry h3 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 1.5rem;
+    line-height: 1.12;
+    margin: 0.7rem 0;
+    letter-spacing: -0.01em;
+  }
+  .entry p { font-size: 0.9rem; color: var(--ink-soft); }
+  .entry .more { display: inline-block; margin-top: 1rem; font-size: 0.8rem; color: var(--ink-faint); transition: color 0.3s var(--ease); }
+  .entry:hover .more { color: var(--ink); }
+
+  /* ---------- Plan CTA ---------- */
+  .plan {
+    text-align: center;
+    border-top: 1px solid var(--line);
+    position: relative;
+  }
+  .plan h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(2.2rem, 6vw, 4.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    max-width: 16ch;
+    margin: 0.8rem auto 1.4rem;
+  }
+  .plan p { color: var(--ink-soft); max-width: 46ch; margin: 0 auto 2.2rem; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: clamp(3rem, 8vh, 5rem) var(--pad) 2.5rem;
+  }
+  .foot-grid {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  .foot-brand .brand { font-size: 1.6rem; }
+  .foot-brand .byline { margin-top: 0.9rem; color: var(--ink-soft); font-size: 0.9rem; }
+  .foot-links { display: flex; gap: clamp(2rem, 6vw, 5rem); }
+  .foot-links ul { list-style: none; }
+  .foot-links h4 { font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 0.9rem; }
+  .foot-links a { display: block; padding: 0.28rem 0; font-size: 0.9rem; color: var(--ink-soft); transition: color 0.3s var(--ease); }
+  .foot-links a:hover { color: var(--red); }
+  .foot-base {
+    max-width: 1180px;
+    margin: 3rem auto 0;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+  }
+
+  /* ---------- Reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal.d1 { transition-delay: 0.08s; }
+  .reveal.d2 { transition-delay: 0.16s; }
+  .reveal.d3 { transition-delay: 0.24s; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .journal { grid-template-columns: 1fr; }
+    .pill nav { display: none; position: absolute; top: calc(100% + 0.6rem); left: 0; right: 0;
+      flex-direction: column; gap: 0.2rem; background: rgba(16,16,22,0.92);
+      border: 1px solid var(--line); border-radius: 20px; padding: 0.8rem; backdrop-filter: blur(18px); }
+    .pill nav.open { display: flex; }
+    .pill nav a { padding: 0.7rem 0.9rem; }
+    .menu-toggle { display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 999px; background: transparent;
+      border: 1px solid var(--line); color: var(--ink); cursor: pointer; font-size: 1rem; }
+    .pill { position: relative; width: 100%; max-width: 460px; justify-content: space-between; }
+  }
+  @media (max-width: 520px) {
+    .grid { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .btn { justify-content: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; scroll-behavior: auto !important; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .orb { animation: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="space"></div>
+  <div class="mesh"></div>
+  <canvas id="stars"></canvas>
+  <div class="grain"></div>
+
+  <header>
+    <div class="pill">
+      <a href="#top" class="brand">VANE<span class="dot">.</span></a>
+      <nav id="nav">
+        <a href="#collection">Collection</a>
+        <a href="#collection">Restaurants</a>
+        <a href="#bearings">Bearings</a>
+        <a href="#map">The Map</a>
+        <a href="#plan">Plan With Me</a>
+      </nav>
+      <a href="#plan" class="cta">Plan with me</a>
+      <button class="menu-toggle" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="orb-stage" aria-hidden="true">
+        <div class="orb-halo"></div>
+        <div class="orb" id="orb"></div>
+      </div>
+      <div class="hero-content">
+        <span class="eyebrow">Mediterranean hotels &amp; restaurants</span>
+        <!-- Headline options considered: "The Mediterranean, kept." / "A considered Mediterranean." / "Rooms worth the journey." -->
+        <h1>A considered<br /><em>Mediterranean</em>.</h1>
+        <p class="sub">A curated collection of hotels and restaurants across the Mediterranean, reviewed first-hand where we can and reported with care where we cannot.</p>
+        <div class="hero-actions">
+          <a href="#collection" class="btn btn-primary" data-magnetic>Explore the collection</a>
+          <a href="#plan" class="btn btn-ghost" data-magnetic>Plan with me</a>
+        </div>
+      </div>
+      <div class="scroll-hint" aria-hidden="true"><span class="line"></span>Scroll</div>
+    </section>
+
+    <!-- MANIFESTO -->
+    <section class="manifesto">
+      <div class="wrap reveal">
+        <span class="eyebrow">The verdict</span>
+        <p>No scores, no stars. The <b>curation</b> is the verdict.</p>
+      </div>
+    </section>
+
+    <!-- COLLECTION -->
+    <section id="collection">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <div>
+            <span class="eyebrow">The collection</span>
+            <h2>Places we would return to.</h2>
+          </div>
+          <a href="#collection" class="link">View all regions</a>
+        </div>
+        <div class="grid">
+          <a href="#collection" class="card c1 reveal" data-tilt>
+            <div class="meta">
+              <div class="region">Italy</div>
+              <div class="name">Amalfi</div>
+              <div class="kind">Hotels &amp; tables</div>
+            </div>
+          </a>
+          <a href="#collection" class="card c2 reveal d1" data-tilt>
+            <div class="meta">
+              <div class="region">Greece</div>
+              <div class="name">Mani</div>
+              <div class="kind">Hotels &amp; tables</div>
+            </div>
+          </a>
+          <a href="#collection" class="card c3 reveal d2" data-tilt>
+            <div class="meta">
+              <div class="region">Spain</div>
+              <div class="name">Menorca</div>
+              <div class="kind">Hotels &amp; tables</div>
+            </div>
+          </a>
+          <a href="#collection" class="card c4 reveal d3" data-tilt>
+            <div class="meta">
+              <div class="region">Greece</div>
+              <div class="name">Cyclades</div>
+              <div class="kind">Hotels &amp; tables</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEARINGS -->
+    <section id="bearings" class="bearings">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <div>
+            <span class="eyebrow">Bearings</span>
+            <h2>The journal.</h2>
+          </div>
+          <a href="#bearings" class="link">Read Bearings</a>
+        </div>
+        <div class="journal">
+          <a href="#bearings" class="entry reveal">
+            <span class="tag">Room with a view</span>
+            <h3>What a good hotel actually owes you.</h3>
+            <p>Notes on light, quiet and the small courtesies that outlast a marble lobby.</p>
+            <span class="more">Read the piece</span>
+          </a>
+          <a href="#bearings" class="entry reveal d1">
+            <span class="tag">At the table</span>
+            <h3>The case for the coastal taverna.</h3>
+            <p>Why the plainest room by the water often keeps the finest kitchen.</p>
+            <span class="more">Read the piece</span>
+          </a>
+          <a href="#bearings" class="entry reveal d2">
+            <span class="tag">Field notes</span>
+            <h3>Travelling the Mediterranean out of season.</h3>
+            <p>Fewer crowds, softer light and the places that stay open for their own.</p>
+            <span class="more">Read the piece</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAP / PLAN -->
+    <section id="map" class="plan" aria-labelledby="planhead">
+      <div class="wrap reveal">
+        <span class="eyebrow">Plan With Me</span>
+        <h2 id="planhead">Tell me where, and I will point you well.</h2>
+        <p>A free, unhurried concierge over WhatsApp. Share a coast, a season and a table you are after, and I will send back a short, honest shortlist from the collection.</p>
+        <div class="hero-actions" id="plan">
+          <a href="#plan" class="btn btn-primary" data-magnetic>Start on WhatsApp</a>
+          <a href="#map" class="btn btn-ghost" data-magnetic>Open The Map</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#top" class="brand">VANE<span class="dot">.</span></a>
+        <p class="byline">By Dimitris Stathopoulos</p>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h4>Discover</h4>
+          <ul>
+            <li><a href="#collection">Collection</a></li>
+            <li><a href="#collection">Restaurants</a></li>
+            <li><a href="#bearings">Bearings</a></li>
+            <li><a href="#map">The Map</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>VANE</h4>
+          <ul>
+            <li><a href="#plan">Plan With Me</a></li>
+            <li><a href="#top">About</a></li>
+            <li><a href="#bearings">Journal</a></li>
+            <li><a href="#top">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 VANE · Mediterranean-first</span>
+      <span>Design variant · test</span>
+    </div>
+  </footer>
+
+  <script>
+    // ---- Starfield (canvas, graceful) ----
+    (function () {
+      var canvas = document.getElementById('stars');
+      if (!canvas || !canvas.getContext) return;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var ctx = canvas.getContext('2d');
+      var stars = [], w, h, dpr;
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = canvas.width = Math.floor(innerWidth * dpr);
+        h = canvas.height = Math.floor(innerHeight * dpr);
+        canvas.style.width = innerWidth + 'px';
+        canvas.style.height = innerHeight + 'px';
+        var count = Math.min(220, Math.floor((innerWidth * innerHeight) / 9000));
+        stars = [];
+        for (var i = 0; i < count; i++) {
+          stars.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: (Math.random() * 1.2 + 0.2) * dpr,
+            a: Math.random() * 0.6 + 0.2,
+            tw: Math.random() * 0.02 + 0.004,
+            p: Math.random() * Math.PI * 2
+          });
+        }
+      }
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        for (var i = 0; i < stars.length; i++) {
+          var s = stars[i];
+          s.p += s.tw;
+          var alpha = s.a + Math.sin(s.p) * 0.25;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(244,240,234,' + Math.max(0, alpha) + ')';
+          ctx.fill();
+        }
+        if (!reduce) requestAnimationFrame(draw);
+      }
+      resize();
+      window.addEventListener('resize', resize);
+      draw();
+    })();
+
+    // ---- Scroll reveal ----
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (e) { e.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+        });
+      }, { threshold: 0.15 });
+      els.forEach(function (e) { io.observe(e); });
+    })();
+
+    // ---- Magnetic buttons + card tilt ----
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || window.matchMedia('(pointer: coarse)').matches) return;
+
+      document.querySelectorAll('[data-magnetic]').forEach(function (btn) {
+        btn.addEventListener('mousemove', function (e) {
+          var r = btn.getBoundingClientRect();
+          var mx = e.clientX - r.left - r.width / 2;
+          var my = e.clientY - r.top - r.height / 2;
+          btn.style.transform = 'translate(' + mx * 0.25 + 'px,' + my * 0.35 + 'px)';
+        });
+        btn.addEventListener('mouseleave', function () { btn.style.transform = ''; });
+      });
+
+      document.querySelectorAll('[data-tilt]').forEach(function (card) {
+        card.addEventListener('mousemove', function (e) {
+          var r = card.getBoundingClientRect();
+          var px = (e.clientX - r.left) / r.width - 0.5;
+          var py = (e.clientY - r.top) / r.height - 0.5;
+          card.style.transform = 'translateY(-6px) perspective(800px) rotateX(' + (-py * 6) + 'deg) rotateY(' + (px * 6) + 'deg)';
+        });
+        card.addEventListener('mouseleave', function () { card.style.transform = ''; });
+      });
+    })();
+
+    // ---- Orb parallax on pointer ----
+    (function () {
+      var orb = document.getElementById('orb');
+      if (!orb || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      window.addEventListener('mousemove', function (e) {
+        var x = (e.clientX / innerWidth - 0.5) * 24;
+        var y = (e.clientY / innerHeight - 0.5) * 24;
+        orb.style.translate = x + 'px ' + y + 'px';
+      });
+    })();
+
+    // ---- Mobile menu ----
+    (function () {
+      var btn = document.getElementById('menuBtn');
+      var nav = document.getElementById('nav');
+      if (!btn || !nav) return;
+      btn.addEventListener('click', function () {
+        var open = nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      nav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          nav.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

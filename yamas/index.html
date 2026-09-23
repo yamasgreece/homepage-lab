@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yamas Greece — Eat Athens like a local</title>
+<meta name="description" content="A 3.5-hour small-group Athens food walk from Psyrri to the Varvakios market. 8–10 tastings, max 10 guests, from €119. Hosted by food journalist Dimitris Stathopoulos." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #14100c;
+    --bg-2: #1c150e;
+    --charcoal: #221a12;
+    --ember: #e8a23d;
+    --ember-soft: #f4c078;
+    --blue: #1e4a6b;
+    --ink: #f6efe4;
+    --ink-dim: #c9bba6;
+    --ink-faint: #8a7d69;
+    --line: rgba(232,162,61,.16);
+    --radius: 22px;
+    --maxw: 1180px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", system-ui, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+
+  /* ---------- Background layers ---------- */
+  .mesh {
+    position: fixed;
+    inset: -20% -10%;
+    z-index: -3;
+    filter: blur(60px) saturate(1.15);
+    opacity: .9;
+    background:
+      radial-gradient(38% 42% at 22% 28%, rgba(232,162,61,.42), transparent 70%),
+      radial-gradient(34% 40% at 78% 20%, rgba(244,192,120,.28), transparent 70%),
+      radial-gradient(46% 50% at 68% 78%, rgba(30,74,107,.40), transparent 72%),
+      radial-gradient(40% 44% at 18% 82%, rgba(178,86,32,.36), transparent 70%);
+    animation: meshDrift 26s ease-in-out infinite alternate;
+  }
+  @keyframes meshDrift {
+    0%   { transform: translate3d(0,0,0) scale(1); }
+    50%  { transform: translate3d(2.5%, -2%, 0) scale(1.08); }
+    100% { transform: translate3d(-2%, 2.5%, 0) scale(1.04); }
+  }
+
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    opacity: .05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .vignette {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(120% 90% at 50% 30%, transparent 40%, rgba(0,0,0,.55) 100%);
+  }
+
+  .particles { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+  .particles span {
+    position: absolute;
+    bottom: -10px;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--ember-soft);
+    opacity: 0;
+    box-shadow: 0 0 6px rgba(244,192,120,.7);
+    animation: rise linear infinite;
+  }
+  @keyframes rise {
+    0%   { transform: translateY(0) translateX(0); opacity: 0; }
+    10%  { opacity: .7; }
+    90%  { opacity: .35; }
+    100% { transform: translateY(-105vh) translateX(30px); opacity: 0; }
+  }
+
+  /* ---------- Layout ---------- */
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Pill nav ---------- */
+  header {
+    position: fixed;
+    top: 18px; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    padding: 0 16px;
+  }
+  .pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(28,21,14,.55);
+    border: 1px solid var(--line);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 9px 9px 9px 20px;
+    border-radius: 999px;
+    box-shadow: 0 10px 40px rgba(0,0,0,.35);
+    max-width: 100%;
+  }
+  .brand {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: .3px;
+    margin-right: 10px;
+    white-space: nowrap;
+  }
+  .brand b { color: var(--ember); }
+  .pill nav { display: flex; gap: 4px; }
+  .pill nav a {
+    color: var(--ink-dim);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    transition: color .25s, background .25s;
+  }
+  .pill nav a:hover { color: var(--ink); background: rgba(232,162,61,.12); }
+  .nav-cta {
+    background: var(--ember);
+    color: #221703 !important;
+    font-weight: 600;
+    padding: 10px 18px !important;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: transform .25s, box-shadow .25s;
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(232,162,61,.35); }
+  .nav-links { display: flex; gap: 4px; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 140px 24px 80px;
+  }
+  .orb-stage {
+    position: absolute;
+    top: 46%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(70vw, 560px);
+    height: min(70vw, 560px);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .orb {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 38% 34%, #ffe6b8 0%, var(--ember-soft) 22%, var(--ember) 46%, #b25620 72%, #5a2a10 100%);
+    box-shadow:
+      0 0 90px 20px rgba(232,162,61,.45),
+      0 0 200px 60px rgba(232,162,61,.25),
+      inset -30px -30px 90px rgba(90,42,16,.6),
+      inset 20px 20px 60px rgba(255,230,184,.35);
+    animation: orbFloat 9s ease-in-out infinite, orbSpin 34s linear infinite;
+    filter: saturate(1.1);
+  }
+  .orb::after {
+    content: "";
+    position: absolute;
+    inset: -8%;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent, rgba(255,230,184,.18), transparent 40%);
+    animation: orbSpin 18s linear infinite reverse;
+    mix-blend-mode: screen;
+  }
+  @keyframes orbFloat {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-22px); }
+  }
+  @keyframes orbSpin { to { transform: rotate(360deg); } }
+
+  .hero-inner { position: relative; z-index: 2; max-width: 900px; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 12.5px;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+    color: var(--ember-soft);
+    margin-bottom: 26px;
+    padding: 7px 16px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(28,21,14,.4);
+    backdrop-filter: blur(6px);
+  }
+  .eyebrow .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--ember);
+    box-shadow: 0 0 10px var(--ember);
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.35;} }
+
+  h1.hero-title {
+    font-family: "Fraunces", serif;
+    font-weight: 500;
+    font-size: clamp(2.9rem, 8.5vw, 6.6rem);
+    line-height: .98;
+    letter-spacing: -1.5px;
+    margin-bottom: 22px;
+  }
+  h1.hero-title em {
+    font-style: italic;
+    color: var(--ember);
+    font-weight: 400;
+  }
+  .line { display: block; overflow: hidden; }
+  .line span {
+    display: block;
+    transform: translateY(105%);
+    opacity: 0;
+    animation: rise-in 1s cubic-bezier(.19,1,.22,1) forwards;
+  }
+  .line:nth-child(2) span { animation-delay: .12s; }
+  .line:nth-child(3) span { animation-delay: .24s; }
+  @keyframes rise-in { to { transform: translateY(0); opacity: 1; } }
+
+  .subhead {
+    max-width: 560px;
+    margin: 0 auto 34px;
+    color: var(--ink-dim);
+    font-size: clamp(1rem, 2.4vw, 1.18rem);
+    opacity: 0;
+    animation: fade-up .9s ease .5s forwards;
+  }
+  @keyframes fade-up { from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);} }
+
+  .cta-row {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fade-up .9s ease .66s forwards;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 28px;
+    border-radius: 999px;
+    font-size: 15.5px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform .25s, box-shadow .3s, background .3s;
+    will-change: transform;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--ember-soft), var(--ember));
+    color: #221703;
+    box-shadow: 0 10px 34px rgba(232,162,61,.32);
+  }
+  .btn-primary:hover { box-shadow: 0 14px 44px rgba(232,162,61,.5); }
+  .btn-secondary {
+    background: rgba(246,239,228,.04);
+    border-color: var(--line);
+    color: var(--ink);
+  }
+  .btn-secondary:hover { background: rgba(246,239,228,.09); border-color: rgba(232,162,61,.4); }
+
+  .trust {
+    margin-top: 40px;
+    display: flex;
+    gap: 10px 26px;
+    justify-content: center;
+    flex-wrap: wrap;
+    color: var(--ink-dim);
+    font-size: 14.5px;
+    opacity: 0;
+    animation: fade-up .9s ease .82s forwards;
+  }
+  .trust span { display: inline-flex; align-items: center; gap: 7px; }
+  .trust .sep { color: var(--ink-faint); }
+  .stars { color: var(--ember); letter-spacing: 1px; }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 26px; left: 50%;
+    transform: translateX(-50%);
+    color: var(--ink-faint);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fade-up 1s ease 1.1s forwards;
+  }
+  .scroll-hint .bar {
+    width: 1px; height: 34px;
+    background: linear-gradient(var(--ember), transparent);
+    animation: scrollBar 2s ease-in-out infinite;
+  }
+  @keyframes scrollBar { 0%,100%{transform:scaleY(.4); opacity:.4;} 50%{transform:scaleY(1); opacity:1;} }
+
+  /* ---------- Sections ---------- */
+  section.block { position: relative; padding: 110px 0; z-index: 2; }
+  .kicker {
+    font-size: 12.5px;
+    letter-spacing: 2.6px;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 16px;
+  }
+  h2.sec {
+    font-family: "Fraunces", serif;
+    font-weight: 500;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 18px;
+  }
+  h2.sec em { font-style: italic; color: var(--ember); }
+  .lede { max-width: 620px; color: var(--ink-dim); font-size: 1.08rem; }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(34px); transition: opacity .9s cubic-bezier(.19,1,.22,1), transform .9s cubic-bezier(.19,1,.22,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ---------- Tastings ---------- */
+  .taste-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 46px; }
+  .route-chip {
+    font-size: 13px;
+    color: var(--ink-dim);
+    border: 1px solid var(--line);
+    padding: 9px 16px;
+    border-radius: 999px;
+    white-space: nowrap;
+    background: rgba(28,21,14,.4);
+  }
+  .route-chip b { color: var(--ember-soft); font-weight: 600; }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px 24px 24px;
+    background: linear-gradient(160deg, rgba(34,26,18,.7), rgba(20,16,12,.5));
+    backdrop-filter: blur(4px);
+    overflow: hidden;
+    transition: transform .4s cubic-bezier(.19,1,.22,1), border-color .4s, box-shadow .4s;
+  }
+  .card::before {
+    content: "";
+    position: absolute;
+    top: -40%; right: -30%;
+    width: 60%; height: 80%;
+    background: radial-gradient(circle, rgba(232,162,61,.22), transparent 70%);
+    opacity: 0;
+    transition: opacity .5s;
+  }
+  .card:hover { transform: translateY(-6px); border-color: rgba(232,162,61,.45); box-shadow: 0 18px 50px rgba(0,0,0,.4); }
+  .card:hover::before { opacity: 1; }
+  .card .num {
+    font-family: "Fraunces", serif;
+    font-size: 15px;
+    color: var(--ember);
+    opacity: .8;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+  .card h3 { font-family: "Fraunces", serif; font-weight: 500; font-size: 1.4rem; margin-bottom: 8px; letter-spacing: -.3px; }
+  .card p { font-size: 14.5px; color: var(--ink-dim); }
+
+  /* ---------- Direct booking ---------- */
+  .direct {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    padding: 58px clamp(28px, 5vw, 64px);
+    background: linear-gradient(150deg, rgba(30,74,107,.22), rgba(34,26,18,.5));
+    overflow: hidden;
+  }
+  .direct::after {
+    content: "";
+    position: absolute;
+    bottom: -50%; left: -10%;
+    width: 60%; height: 120%;
+    background: radial-gradient(circle, rgba(232,162,61,.20), transparent 70%);
+    pointer-events: none;
+  }
+  .direct-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; position: relative; z-index: 2; }
+  .direct h2 { margin-bottom: 14px; }
+  .direct ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .direct li { display: flex; gap: 12px; color: var(--ink-dim); font-size: 15.5px; }
+  .direct li b { color: var(--ink); font-weight: 600; }
+  .direct .tick {
+    flex: 0 0 22px; width: 22px; height: 22px; margin-top: 1px;
+    border-radius: 50%;
+    background: rgba(232,162,61,.16);
+    color: var(--ember);
+    display: grid; place-items: center;
+    font-size: 12px;
+  }
+
+  /* ---------- Reviews ---------- */
+  .reviews { text-align: center; }
+  .big-rating {
+    font-family: "Fraunces", serif;
+    font-size: clamp(4rem, 14vw, 9rem);
+    font-weight: 500;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--ember-soft), var(--ember), #b25620);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -3px;
+  }
+  .review-stars { font-size: clamp(1.6rem, 5vw, 2.4rem); color: var(--ember); letter-spacing: 6px; margin: 6px 0 14px; }
+  .review-source { color: var(--ink-dim); font-size: 15px; }
+  .review-source b { color: var(--ink); }
+
+  /* ---------- Final CTA ---------- */
+  .final {
+    text-align: center;
+    padding: 120px 0 90px;
+  }
+  .final h2 { margin: 0 auto 20px; max-width: 760px; }
+  .final .cta-row { margin-top: 30px; animation: none; opacity: 1; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 40px 0 54px;
+    position: relative;
+    z-index: 2;
+  }
+  .foot-grid { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .foot-brand { font-family: "Fraunces", serif; font-size: 20px; }
+  .foot-brand b { color: var(--ember); }
+  footer p { color: var(--ink-faint); font-size: 13.5px; }
+  footer a { color: var(--ink-dim); text-decoration: none; }
+  footer a:hover { color: var(--ember); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px) {
+    .direct-grid { grid-template-columns: 1fr; gap: 28px; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 560px) {
+    .pill { padding: 8px 8px 8px 16px; }
+    .brand { font-size: 16px; margin-right: 4px; }
+    section.block { padding: 80px 0; }
+    .btn { padding: 14px 22px; }
+  }
+
+  /* ---------- Reduced motion ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .line span, .subhead, .cta-row, .trust, .scroll-hint { opacity: 1 !important; transform: none !important; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    html { scroll-behavior: auto; }
+    .mesh { filter: blur(60px); }
+  }
+</style>
+</head>
+<body>
+
+<div class="mesh" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="particles" id="particles" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<header>
+  <div class="pill">
+    <span class="brand">Yamas<b>.</b> Greece</span>
+    <nav class="nav-links">
+      <a href="#walk">The Walk</a>
+      <a href="#tastings">Tastings</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#book">Book</a>
+    </nav>
+    <a class="nav-cta magnetic" href="https://wa.me/306942925783">Book on WhatsApp</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="orb-stage" aria-hidden="true"><div class="orb"></div></div>
+  <div class="hero-inner">
+    <span class="eyebrow"><span class="dot"></span> Small-group Athens food walk</span>
+    <h1 class="hero-title">
+      <span class="line"><span>Eat Athens</span></span>
+      <span class="line"><span>like a <em>local.</em></span></span>
+    </h1>
+    <p class="subhead">The city, one bite at a time — a 3.5-hour walk from Psyrri to the Varvakios market, led by food journalist Dimitris Stathopoulos.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary magnetic" href="https://wa.me/306942925783">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2s-1.2.3-3.9-.9-4.3-4-4.5-4.2-1.2-1.6-1.2-3 .8-2 1-2.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6c-.2.2-.4.4-.2.7s.8 1.3 1.7 2.1c1.1 1 2 1.3 2.3 1.4s.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.9 1c.2.1.4.2.4.3s0 .7-.2 1.3Z"/></svg>
+        Book on WhatsApp
+      </a>
+      <a class="btn btn-secondary magnetic" href="#walk">See the walk</a>
+    </div>
+    <div class="trust">
+      <span><span class="stars">★</span> 4.9 rated</span>
+      <span class="sep">·</span>
+      <span>from €119</span>
+      <span class="sep">·</span>
+      <span>3.5 hours</span>
+      <span class="sep">·</span>
+      <span>max 10 guests</span>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><span class="bar"></span></div>
+</section>
+
+<!-- ============ THE WALK ============ -->
+<section class="block" id="walk">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="kicker">The Walk</p>
+      <h2 class="sec">One neighbourhood, <em>one appetite</em>.</h2>
+      <p class="lede">We start in the backstreets of Psyrri and end at the Varvakios central market — 3.5 hours on foot, 8 to 10 tastings, and never more than 10 guests. Small enough to talk, slow enough to taste, honest enough to remember.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TASTINGS ============ -->
+<section class="block" id="tastings" style="padding-top:0;">
+  <div class="wrap">
+    <div class="taste-head reveal">
+      <div>
+        <p class="kicker">What you'll taste</p>
+        <h2 class="sec">Eight to ten <em>stops</em>.</h2>
+      </div>
+      <span class="route-chip"><b>Psyrri</b> &rarr; Varvakios market</span>
+    </div>
+    <div class="cards">
+      <div class="card reveal"><div class="num">01</div><h3>Souvlaki</h3><p>Charcoal, lemon, warm bread — the everyday classic done the way Athenians actually eat it.</p></div>
+      <div class="card reveal"><div class="num">02</div><h3>Meze table</h3><p>Small plates meant for sharing, poured slowly with something cold on the side.</p></div>
+      <div class="card reveal"><div class="num">03</div><h3>Greek cheeses</h3><p>Sharp, creamy and aged — a short tour of the country's regions on one board.</p></div>
+      <div class="card reveal"><div class="num">04</div><h3>Olives &amp; oil</h3><p>Cured olives and green, peppery olive oil straight from the source.</p></div>
+      <div class="card reveal"><div class="num">05</div><h3>Market bites</h3><p>Whatever is best that morning at the Varvakios stalls — seasonal and unrehearsed.</p></div>
+      <div class="card reveal"><div class="num">06</div><h3>Loukoumades</h3><p>Honey-soaked doughnuts, dusted with cinnamon and eaten far too fast.</p></div>
+      <div class="card reveal"><div class="num">07</div><h3>Greek coffee</h3><p>Thick, slow and unhurried — the pause that resets the whole afternoon.</p></div>
+      <div class="card reveal"><div class="num">08</div><h3>&amp; a little more</h3><p>A few seasonal surprises along the route, chosen on the day, never on a script.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIRECT BOOKING ============ -->
+<section class="block" id="book">
+  <div class="wrap">
+    <div class="direct reveal">
+      <div class="direct-grid">
+        <div>
+          <p class="kicker">Why book direct</p>
+          <h2 class="sec">Straight to your <em>host</em>.</h2>
+          <p class="lede">Message Dimitris on WhatsApp and you book the walk directly — no platform in the middle, no commission skimmed off the top. Just a quick conversation, your date, and you're in.</p>
+          <div class="cta-row" style="margin-top:28px; justify-content:flex-start; animation:none; opacity:1;">
+            <a class="btn btn-primary magnetic" href="https://wa.me/306942925783">Book on WhatsApp</a>
+          </div>
+        </div>
+        <ul>
+          <li><span class="tick">✓</span><span><b>No commission.</b> Every euro supports a local host, not a booking platform.</span></li>
+          <li><span class="tick">✓</span><span><b>Direct answers.</b> Ask about dates, dietary needs or the route before you commit.</span></li>
+          <li><span class="tick">✓</span><span><b>From €119</b> per person — 8–10 tastings across 3.5 hours.</span></li>
+          <li><span class="tick">✓</span><span><b>Max 10 guests</b>, so it stays personal from first bite to last.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="block reviews" id="reviews">
+  <div class="wrap reveal">
+    <p class="kicker">Reviews</p>
+    <div class="big-rating">4.9</div>
+    <div class="review-stars">★★★★★</div>
+    <p class="review-source">Average rating on <b>Withlocals</b> — from guests who walked it.</p>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final">
+  <div class="wrap reveal">
+    <p class="kicker">Book</p>
+    <h2 class="sec">Athens, <em>tasted properly</em>.</h2>
+    <p class="lede" style="margin:0 auto;">Small group, short walk, real food. Send a message and pick your morning.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary magnetic" href="https://wa.me/306942925783">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2s-1.2.3-3.9-.9-4.3-4-4.5-4.2-1.2-1.6-1.2-3 .8-2 1-2.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6c-.2.2-.4.4-.2.7s.8 1.3 1.7 2.1c1.1 1 2 1.3 2.3 1.4s.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.9 1c.2.1.4.2.4.3s0 .7-.2 1.3Z"/></svg>
+        Book on WhatsApp
+      </a>
+      <a class="btn btn-secondary magnetic" href="#tastings">See the tastings</a>
+    </div>
+    <p class="trust" style="animation:none; opacity:1;">
+      <span><span class="stars">★</span> 4.9 rated</span><span class="sep">·</span>
+      <span>from €119</span><span class="sep">·</span>
+      <span>3.5 hours</span><span class="sep">·</span>
+      <span>max 10 guests</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <div class="foot-brand">Yamas<b>.</b> Greece</div>
+      <p>Hosted by Dimitris Stathopoulos, food &amp; travel journalist.</p>
+    </div>
+    <div style="text-align:right;">
+      <p><a href="https://wa.me/306942925783">+30 694 292 5783</a> · Psyrri &rarr; Varvakios</p>
+      <p style="margin-top:6px;">Design variant · test</p>
+    </div>
+  </div>
+</footer>
+
+<!-- CDN (optional, degrade gracefully) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lenis/1.0.42/lenis.min.js"></script>
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- Particles ---- */
+  (function () {
+    var host = document.getElementById("particles");
+    if (!host || reduce) return;
+    var n = window.innerWidth < 640 ? 16 : 30;
+    for (var i = 0; i < n; i++) {
+      var s = document.createElement("span");
+      s.style.left = Math.random() * 100 + "vw";
+      var dur = 10 + Math.random() * 16;
+      s.style.animationDuration = dur + "s";
+      s.style.animationDelay = (-Math.random() * dur) + "s";
+      var sc = 0.6 + Math.random() * 1.6;
+      s.style.transform = "scale(" + sc + ")";
+      host.appendChild(s);
+    }
+  })();
+
+  /* ---- Scroll reveal ---- */
+  (function () {
+    var els = document.querySelectorAll(".reveal");
+    if (reduce || !("IntersectionObserver" in window)) {
+      els.forEach(function (e) { e.classList.add("in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
+    els.forEach(function (e, i) {
+      e.style.transitionDelay = ((i % 4) * 0.06) + "s";
+      io.observe(e);
+    });
+  })();
+
+  /* ---- Magnetic hover ---- */
+  (function () {
+    if (reduce || window.matchMedia("(hover: none)").matches) return;
+    document.querySelectorAll(".magnetic").forEach(function (el) {
+      el.addEventListener("mousemove", function (e) {
+        var r = el.getBoundingClientRect();
+        var x = e.clientX - r.left - r.width / 2;
+        var y = e.clientY - r.top - r.height / 2;
+        el.style.transform = "translate(" + x * 0.22 + "px," + y * 0.3 + "px)";
+      });
+      el.addEventListener("mouseleave", function () { el.style.transform = ""; });
+    });
+  })();
+
+  /* ---- Smooth scroll (Lenis, optional) ---- */
+  (function () {
+    if (reduce || typeof Lenis === "undefined") return;
+    try {
+      var lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+      function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+      document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener("click", function (e) {
+          var t = document.querySelector(a.getAttribute("href"));
+          if (t) { e.preventDefault(); lenis.scrollTo(t, { offset: -20 }); }
+        });
+      });
+    } catch (err) { /* graceful */ }
+  })();
+
+  /* ---- Orb parallax on scroll (GSAP optional) ---- */
+  (function () {
+    if (reduce) return;
+    var orb = document.querySelector(".orb-stage");
+    if (!orb) return;
+    window.addEventListener("scroll", function () {
+      var y = window.scrollY;
+      if (y < window.innerHeight) {
+        orb.style.transform = "translate(-50%, calc(-50% + " + (y * 0.18) + "px))";
+      }
+    }, { passive: true });
+  })();
+})();
+</script>
+</body>
+</html>
