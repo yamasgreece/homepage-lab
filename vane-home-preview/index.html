@@ -75,19 +75,48 @@
   @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.nav-links{gap:22px}.nav-links a{font-size:11px;letter-spacing:.08em}.filterbar{top:0}}
   @media(max-width:700px){.filter-in{flex-wrap:wrap;justify-content:center;gap:13px 22px;padding:15px 0}.filter-in a{white-space:nowrap}.fbreak{display:block;flex-basis:100%;height:0;margin:0}.filter-in a.active::after{bottom:-5px}}
   @media(max-width:560px){.grid{grid-template-columns:1fr}.wrap{padding:0 24px}.brand{letter-spacing:.26em}.nav-links{gap:15px}.nav-links a{font-size:10px;letter-spacing:.04em}.nl-collection{display:none}.hero{padding:50px 0 52px}.hero .label{margin-bottom:18px}.hero h1{font-size:31px;line-height:1.16;letter-spacing:-.01em;max-width:none}.hero .sub{margin-top:20px;font-size:15.5px;line-height:1.55;max-width:none}.hero .by{margin-top:24px;letter-spacing:.18em}}
-  /* The Front: the latest pieces across VANE, image-led */
-  .front{padding:10px 0 100px}
-  .fgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:70px 40px}
+  /* The Front: an asymmetric editorial mosaic, lead + mixed tiles */
+  .front{padding:10px 0 110px}
+  .mast{border-top:2px solid var(--ink);padding-top:14px;margin-bottom:64px}
+  .mast-top{display:flex;justify-content:space-between;align-items:baseline;gap:20px}
+  .mast .kick{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--red);font-weight:500}
+  .mast h2{font-family:'Newsreader',serif;font-weight:300;font-size:clamp(34px,4.4vw,58px);line-height:1.06;letter-spacing:-.012em;margin-top:26px}
+  .mast-cols{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+  .mast-cols a:hover{color:var(--ink)}
+  .fmosaic{counter-reset:ft}
+  .ftile{display:block}
+  .ftile .fimg{background:#EFEDE9;overflow:hidden;aspect-ratio:4/5}
+  .ftile .fimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s ease}
+  .ftile:hover .fimg img{transform:scale(1.03)}
+  .ftile .fk{margin-top:20px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);font-weight:500}
+  .ftile .fk::before{counter-increment:ft;content:counter(ft,decimal-leading-zero);color:var(--soft);margin-right:12px;font-weight:400}
+  .ftile h3{font-family:'Newsreader',serif;font-weight:300;font-size:clamp(21px,1.9vw,27px);line-height:1.18;letter-spacing:-.004em;margin-top:9px;max-width:24ch}
+  .ftile .fdek{margin-top:10px;color:var(--soft);font-size:14.5px;font-weight:300;line-height:1.5;max-width:44ch}
+  .ftile .loc{display:block;margin-top:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+  .fm-a{display:grid;grid-template-columns:8fr 4fr;gap:48px;align-items:start}
+  .ft-lead .fimg{aspect-ratio:auto;height:clamp(420px,50vw,700px)}
+  .ft-lead h3{font-size:clamp(38px,4.6vw,64px);line-height:1.02;letter-spacing:-.015em;margin-top:14px}
+  .ft-lead .fdek{font-size:17px;margin-top:14px}
+  .fm-side{display:flex;flex-direction:column;gap:48px}
+  .ft-compact{display:grid;grid-template-columns:40% 1fr;gap:20px;align-items:start;padding-top:28px;border-top:1px solid var(--line)}
+  .ft-compact .fimg{aspect-ratio:1/1}
+  .ft-compact .fk{margin-top:0}
+  .fm-rule{margin:104px 0 40px;border-top:1px solid var(--line);padding-top:14px}
+  .fm-b{display:grid;grid-template-columns:5fr 3fr 4fr;gap:40px;align-items:start}
+  .ft-s1 .fimg{aspect-ratio:4/3}
+  .ft-s2{margin-top:110px}
+  .ft-s2 .fimg{aspect-ratio:3/4}
+  .ft-s3{margin-top:36px}
+  .ft-s3 .fimg{aspect-ratio:1/1}
+  .fm-c{display:grid;grid-template-columns:4fr 8fr;gap:48px;align-items:end;margin-top:110px}
+  .ft-wide .fimg{aspect-ratio:16/10}
+  .ft-wide h3{font-size:clamp(28px,3vw,42px);line-height:1.08}
   .fcard{display:block}
-  .fcard.f1,.fcard.f4{grid-column:span 7}
-  .fcard.f2,.fcard.f3{grid-column:span 5}
-  .fcard.f5,.fcard.f6{grid-column:span 6}
-  .fcard .fimg{height:clamp(360px,44vw,620px);background:#EFEDE9;overflow:hidden}
-  .fcard.f5 .fimg,.fcard.f6 .fimg{height:clamp(320px,38vw,540px)}
+  .fcard .fimg{background:#EFEDE9;overflow:hidden;aspect-ratio:3/2}
   .fcard .fimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s ease}
   .fcard:hover .fimg img{transform:scale(1.03)}
-  .fcard .fk{margin-top:22px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);font-weight:500}
-  .fcard h3{font-family:'Newsreader',serif;font-weight:300;font-size:clamp(24px,2.4vw,34px);line-height:1.16;letter-spacing:-.005em;margin-top:10px;max-width:26ch}
+  .fcard .fk{margin-top:18px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);font-weight:500}
+  .fcard h3{font-family:'Newsreader',serif;font-weight:400;font-size:21px;line-height:1.22;margin-top:10px;max-width:26ch}
   .fcard .loc{display:block;margin-top:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
   .grid.collapsed .item:nth-child(n+10){display:none}
   .explore{display:flex;flex-direction:column;align-items:center;gap:20px;padding:64px 0 10px}
@@ -98,33 +127,8 @@
   .latest{padding-top:120px;padding-bottom:40px}
   .lrow+.lrow{margin-top:96px}
   .lgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
-  .lcard .fimg,.fcard.lcard .fimg{height:auto;aspect-ratio:3/2}
-  .fcard.lcard h3{font-size:21px;font-weight:400;line-height:1.22}
-  .fcard.lcard .fk{margin-top:18px}
-  @media(max-width:900px){.fgrid{grid-template-columns:1fr 1fr;gap:54px 24px}.fcard.f1,.fcard.f2,.fcard.f3,.fcard.f4,.fcard.f5,.fcard.f6{grid-column:span 1}.fcard.f1,.fcard.f6{grid-column:1/-1}.fcard .fimg,.fcard.f5 .fimg,.fcard.f6 .fimg{height:auto;aspect-ratio:4/5}.fcard.f1 .fimg,.fcard.f6 .fimg{aspect-ratio:3/2}.lgrid{gap:24px}.fcard.lcard h3{font-size:18px}}
-  @media(max-width:560px){.front{padding-bottom:70px}.fgrid{grid-template-columns:1fr;gap:48px}.fcard.f1,.fcard.f6{grid-column:auto}.fcard .fimg,.fcard.f1 .fimg,.fcard.f6 .fimg{aspect-ratio:4/5}.fcard h3{font-size:25px}.latest{padding-top:80px}.lrow+.lrow{margin-top:70px}.lgrid{grid-template-columns:1fr 1fr;gap:28px 16px}.lgrid .lcard:nth-child(3){display:none}.lcard .fimg,.fcard.lcard .fimg{aspect-ratio:4/5}.fcard.lcard h3{font-size:17px}.explore{padding-top:48px}}
-  /* VANE — full-width feature bands woven between collection rows */
-  .vane-band{position:relative;display:block;width:100%;height:88vh;min-height:560px;overflow:hidden;background-color:#0F0E0D;background-position:center;background-size:cover;background-repeat:no-repeat;background-attachment:fixed;margin:10px 0}
-  .vane-band__overlay{position:absolute;inset:0;background:radial-gradient(ellipse 92% 70% at 50% 50%,rgba(0,0,0,.5),rgba(0,0,0,.16) 48%,rgba(0,0,0,0) 82%);z-index:1}
-  /* elegant lighting: a soft top light + a one-time diagonal sheen that sweeps when the band reveals */
-  .vane-band::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 85% at 50% -12%,rgba(255,255,255,.12),rgba(255,255,255,0) 58%);pointer-events:none;z-index:1}
-  .vane-band::after{content:"";position:absolute;top:0;left:-65%;width:55%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.16),transparent);transform:skewX(-12deg);opacity:0;pointer-events:none;z-index:1}
-  .vane-band.in::after{animation:vsheen 1.6s ease .35s 1 both}
-  @keyframes vsheen{0%{left:-65%;opacity:0}14%{opacity:1}100%{left:125%;opacity:0}}
-  .vane-band__content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-inline:clamp(24px,6vw,120px)}
-  .vane-band__title{font-family:'Newsreader',Georgia,serif;font-weight:300;color:#fff;font-size:clamp(42px,7vw,116px);line-height:1.02;letter-spacing:-.01em;text-shadow:0 2px 44px rgba(0,0,0,.55),0 1px 3px rgba(0,0,0,.45)}
-  .vane-band__motto{font-family:'futura-pt','Jost','Helvetica Neue',sans-serif;font-weight:600;color:#fff;font-size:clamp(13px,1.1vw,16px);letter-spacing:3px;text-transform:uppercase;margin-top:22px;text-shadow:0 1px 22px rgba(0,0,0,.6)}
-  .vane-band__more{display:inline-block;margin-top:30px;font-family:'futura-pt','Jost','Helvetica Neue',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#fff;border-bottom:1px solid rgba(255,255,255,.55);padding-bottom:5px;transition:border-color .35s ease}
-  .vane-band:hover .vane-band__more{border-color:#fff}
-  /* reliable IntersectionObserver staggered char reveal — works in every browser, independent per band. Visible by default; only armed on desktop. */
-  .vane-band__title .ch{display:inline-block;white-space:pre}
-  .vane-band.armed .vane-band__title .ch{opacity:0;transform:translateY(.5em);transition:opacity .55s ease,transform .65s cubic-bezier(.22,.61,.36,1)}
-  .vane-band.armed.in .vane-band__title .ch{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 0.035s)}
-  .vane-band.armed .vane-band__motto,.vane-band.armed .vane-band__more{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
-  .vane-band.armed.in .vane-band__motto{opacity:1;transform:none;transition-delay:calc(var(--n,8) * 0.035s + 0.10s)}
-  .vane-band.armed.in .vane-band__more{opacity:1;transform:none;transition-delay:calc(var(--n,8) * 0.035s + 0.26s)}
-  @media(max-width:1023px){.vane-band{background-attachment:scroll;height:62vh;min-height:420px}}
-  @media(prefers-reduced-motion:reduce){.vane-band{background-attachment:scroll}.vane-band.armed .vane-band__title .ch,.vane-band.armed .vane-band__motto,.vane-band.armed .vane-band__more{opacity:1!important;transform:none!important;transition:none!important}.vane-band.in::after{animation:none}}
+  @media(max-width:900px){.mast{margin-bottom:48px}.fm-a{grid-template-columns:1fr;gap:56px}.ft-lead .fimg{height:auto;aspect-ratio:3/2}.fm-side{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}.ft-compact{display:block;padding-top:0;border-top:0}.ft-compact .fimg{aspect-ratio:4/5}.ft-compact .fk{margin-top:20px}.fm-rule{margin:80px 0 32px}.fm-b{grid-template-columns:1fr 1fr;gap:48px 24px}.ft-s1{grid-column:1/-1}.ft-s1 .fimg{aspect-ratio:3/2}.ft-s2,.ft-s3{margin-top:0}.ft-s3{margin-top:60px}.ft-s2 .fimg,.ft-s3 .fimg{aspect-ratio:4/5}.fm-c{grid-template-columns:1fr 1fr;gap:48px 24px;margin-top:80px;align-items:start}.ft-wide{grid-column:1/-1;order:-1}.ft-port{grid-column:1/2}.lgrid{gap:24px}.lcard h3{font-size:18px}}
+  @media(max-width:560px){.front{padding-bottom:70px}.mast h2{font-size:32px;margin-top:20px}.mast-cols{gap:8px 20px}.fm-a,.fm-side,.fm-b,.fm-c{grid-template-columns:1fr;gap:48px}.ft-s1,.ft-wide,.ft-port{grid-column:auto}.ft-s3{margin-top:0}.ft-lead .fimg{aspect-ratio:4/5}.ft-lead h3{font-size:38px}.ft-compact{display:grid;grid-template-columns:38% 1fr;gap:16px;padding-top:24px;border-top:1px solid var(--line)}.ft-compact .fimg{aspect-ratio:1/1}.ft-compact .fk{margin-top:0}.ft-s1 .fimg,.ft-s2 .fimg,.ft-s3 .fimg,.ft-port .fimg{aspect-ratio:4/5}.ft-wide .fimg{aspect-ratio:4/3}.ftile h3{font-size:24px}.ft-wide h3{font-size:28px}.fm-rule{margin:64px 0 28px}.fm-c{margin-top:64px}.latest{padding-top:80px}.lrow+.lrow{margin-top:70px}.lgrid{grid-template-columns:1fr 1fr;gap:28px 16px}.lgrid .lcard:nth-child(3){display:none}.lcard .fimg{aspect-ratio:4/5}.lcard h3{font-size:17px}.explore{padding-top:48px}}
 </style>
 <!-- VANE-ITEMLIST-START -->
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "VANE — the collection of Mediterranean hotels", "numberOfItems": 87, "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://vanehotels.com/hotel-borgo-santandrea.html", "name": "Borgo Santandrea"}, {"@type": "ListItem", "position": 2, "url": "https://vanehotels.com/hotel-espera-suites.html", "name": "Espera Suites"}, {"@type": "ListItem", "position": 3, "url": "https://vanehotels.com/hotel-beresheet.html", "name": "Beresheet"}, {"@type": "ListItem", "position": 4, "url": "https://vanehotels.com/hotel-hacienda-na-xamena.html", "name": "Hacienda Na Xamena"}, {"@type": "ListItem", "position": 5, "url": "https://vanehotels.com/hotel-villa-belle-epoque.html", "name": "Villa Belle Époque"}, {"@type": "ListItem", "position": 6, "url": "https://vanehotels.com/hotel-albergo.html", "name": "Hotel Albergo"}, {"@type": "ListItem", "position": 7, "url": "https://vanehotels.com/hotel-castello-di-reschio.html", "name": "Castello di Reschio"}, {"@type": "ListItem", "position": 8, "url": "https://vanehotels.com/hotel-green-coast-hotel.html", "name": "Green Coast Hotel"}, {"@type": "ListItem", "position": 9, "url": "https://vanehotels.com/hotel-vander-urbani-resort.html", "name": "Vander Urbani Resort"}, {"@type": "ListItem", "position": 10, "url": "https://vanehotels.com/hotel-anassa.html", "name": "Anassa"}, {"@type": "ListItem", "position": 11, "url": "https://vanehotels.com/hotel-areias-do-seixo.html", "name": "Areias do Seixo"}, {"@type": "ListItem", "position": 12, "url": "https://vanehotels.com/hotel-la-maison-bleue.html", "name": "La Maison Bleue"}, {"@type": "ListItem", "position": 13, "url": "https://vanehotels.com/hotel-dar-hi.html", "name": "Dar Hi"}, {"@type": "ListItem", "position": 14, "url": "https://vanehotels.com/hotel-heure-bleue.html", "name": "L'Heure Bleue Palais"}, {"@type": "ListItem", "position": 15, "url": "https://vanehotels.com/hotel-the-jaffa.html", "name": "The Jaffa"}, {"@type": "ListItem", "position": 16, "url": "https://vanehotels.com/hotel-rosselli-ax-privilege.html", "name": "Rosselli AX Privilege"}, {"@type": "ListItem", "position": 17, "url": "https://vanehotels.com/hotel-monaci-delle-terre-nere.html", "name": "Monaci delle Terre Nere"}, {"@type": "ListItem", "position": 18, "url": "https://vanehotels.com/hotel-chedi-lustica-bay.html", "name": "The Chedi Luštica Bay"}, {"@type": "ListItem", "position": 19, "url": "https://vanehotels.com/hotel-lily-of-the-valley.html", "name": "Lily of the Valley"}, {"@type": "ListItem", "position": 20, "url": "https://vanehotels.com/hotel-alavya.html", "name": "Alavya"}, {"@type": "ListItem", "position": 21, "url": "https://vanehotels.com/hotel-meneghetti.html", "name": "Meneghetti"}, {"@type": "ListItem", "position": 22, "url": "https://vanehotels.com/hotel-the-phoenicia-malta.html", "name": "The Phoenicia Malta"}, {"@type": "ListItem", "position": 23, "url": "https://vanehotels.com/hotel-dar-ben-gacem.html", "name": "Dar Ben Gacem"}, {"@type": "ListItem", "position": 24, "url": "https://vanehotels.com/hotel-bkerzay.html", "name": "Bkerzay"}, {"@type": "ListItem", "position": 25, "url": "https://vanehotels.com/hotel-mas-de-torrent.html", "name": "Mas de Torrent"}, {"@type": "ListItem", "position": 26, "url": "https://vanehotels.com/hotel-beit-al-batroun.html", "name": "Beit al Batroun"}, {"@type": "ListItem", "position": 27, "url": "https://vanehotels.com/hotel-torre-de-palma.html", "name": "Torre de Palma Wine Hotel"}, {"@type": "ListItem", "position": 28, "url": "https://vanehotels.com/hotel-hacienda-de-san-rafael.html", "name": "Hacienda de San Rafael"}, {"@type": "ListItem", "position": 29, "url": "https://vanehotels.com/hotel-efendi.html", "name": "Efendi Hotel"}, {"@type": "ListItem", "position": 30, "url": "https://vanehotels.com/hotel-capo-batroun.html", "name": "Capo"}, {"@type": "ListItem", "position": 31, "url": "https://vanehotels.com/hotel-lopud-1483.html", "name": "Lopud 1483"}, {"@type": "ListItem", "position": 32, "url": "https://vanehotels.com/hotel-kasbah-bab-ourika.html", "name": "Kasbah Bab Ourika"}, {"@type": "ListItem", "position": 33, "url": "https://vanehotels.com/hotel-hisa-franko.html", "name": "Hiša Franko"}, {"@type": "ListItem", "position": 34, "url": "https://vanehotels.com/hotel-dar-el-jeld.html", "name": "Dar El Jeld Hotel &amp; Spa"}, {"@type": "ListItem", "position": 35, "url": "https://vanehotels.com/hotel-al-moudira.html", "name": "Al Moudira"}, {"@type": "ListItem", "position": 36, "url": "https://vanehotels.com/hotel-empire-beach-resort.html", "name": "Empire Beach Resort"}, {"@type": "ListItem", "position": 37, "url": "https://vanehotels.com/hotel-elma-arts-complex.html", "name": "Elma Arts Complex"}, {"@type": "ListItem", "position": 38, "url": "https://vanehotels.com/hotel-le-grotte-della-civita.html", "name": "Sextantio Le Grotte della Civita"}, {"@type": "ListItem", "position": 39, "url": "https://vanehotels.com/hotel-palazzo-radomiri.html", "name": "Palazzo Radomiri"}, {"@type": "ListItem", "position": 40, "url": "https://vanehotels.com/hotel-apokryfo.html", "name": "Apokryfo"}, {"@type": "ListItem", "position": 41, "url": "https://vanehotels.com/hotel-vila-planinka.html", "name": "Vila Planinka"}, {"@type": "ListItem", "position": 42, "url": "https://vanehotels.com/hotel-adrere-amellal.html", "name": "Adrère Amellal"}, {"@type": "ListItem", "position": 43, "url": "https://vanehotels.com/hotel-son-brull.html", "name": "Son Brull"}, {"@type": "ListItem", "position": 44, "url": "https://vanehotels.com/hotel-lazure-hotel-marina.html", "name": "Lazure Hotel &amp; Marina"}, {"@type": "ListItem", "position": 45, "url": "https://vanehotels.com/hotel-sublime-comporta.html", "name": "Sublime Comporta"}, {"@type": "ListItem", "position": 46, "url": "https://vanehotels.com/hotel-the-romanos.html", "name": "The Romanos"}, {"@type": "ListItem", "position": 47, "url": "https://vanehotels.com/hotel-casa-dell-arte.html", "name": "Casa dell'Arte"}, {"@type": "ListItem", "position": 48, "url": "https://vanehotels.com/hotel-lesic-dimitri-palace.html", "name": "Lešić Dimitri Palace"}, {"@type": "ListItem", "position": 49, "url": "https://vanehotels.com/hotel-xara-palace.html", "name": "The Xara Palace"}, {"@type": "ListItem", "position": 50, "url": "https://vanehotels.com/hotel-the-norman-tel-aviv.html", "name": "The Norman"}, {"@type": "ListItem", "position": 51, "url": "https://vanehotels.com/hotel-la-reserve-ramatuelle.html", "name": "La Réserve Ramatuelle"}, {"@type": "ListItem", "position": 52, "url": "https://vanehotels.com/hotel-su-gologone.html", "name": "Su Gologone Experience Hotel"}, {"@type": "ListItem", "position": 53, "url": "https://vanehotels.com/hotel-aman-sveti-stefan.html", "name": "Aman Sveti Stefan"}, {"@type": "ListItem", "position": 54, "url": "https://vanehotels.com/hotel-menorca-experimental.html", "name": "Menorca Experimental"}, {"@type": "ListItem", "position": 55, "url": "https://vanehotels.com/hotel-el-fenn.html", "name": "El Fenn"}, {"@type": "ListItem", "position": 56, "url": "https://vanehotels.com/hotel-vermelho.html", "name": "Vermelho"}, {"@type": "ListItem", "position": 57, "url": "https://vanehotels.com/hotel-mythic-villa.html", "name": "Mythic Villa"}, {"@type": "ListItem", "position": 58, "url": "https://vanehotels.com/hotel-maslina-resort.html", "name": "Maslina Resort"}, {"@type": "ListItem", "position": 59, "url": "https://vanehotels.com/hotel-macakizi.html", "name": "Maçakızı"}, {"@type": "ListItem", "position": 60, "url": "https://vanehotels.com/hotel-la-donaira.html", "name": "La Donaira"}, {"@type": "ListItem", "position": 61, "url": "https://vanehotels.com/hotel-capofaro.html", "name": "Capofaro"}, {"@type": "ListItem", "position": 62, "url": "https://vanehotels.com/hotel-la-mirande.html", "name": "La Mirande"}, {"@type": "ListItem", "position": 63, "url": "https://vanehotels.com/hotel-villa-la-coste.html", "name": "Villa La Coste"}, {"@type": "ListItem", "position": 64, "url": "https://vanehotels.com/hotel-la-colombe-dor.html", "name": "La Colombe d'Or"}, {"@type": "ListItem", "position": 65, "url": "https://vanehotels.com/hotel-masseria-moroseta.html", "name": "Masseria Moroseta"}, {"@type": "ListItem", "position": 66, "url": "https://vanehotels.com/hotel-iniala-valletta.html", "name": "Iniala Valletta"}, {"@type": "ListItem", "position": 67, "url": "https://vanehotels.com/hotel-dar-ahlam.html", "name": "Dar Ahlam"}, {"@type": "ListItem", "position": 68, "url": "https://vanehotels.com/hotel-ammothines-cycladic-suites.html", "name": "Ammothines Cycladic Suites"}, {"@type": "ListItem", "position": 69, "url": "https://vanehotels.com/hotel-casale-panayiotis.html", "name": "Casale Panayiotis"}, {"@type": "ListItem", "position": 70, "url": "https://vanehotels.com/hotel-casa-massina.html", "name": "Casa Massina"}, {"@type": "ListItem", "position": 71, "url": "https://vanehotels.com/hotel-villa-nai-3-3.html", "name": "Villa Nai 3.3"}, {"@type": "ListItem", "position": 72, "url": "https://vanehotels.com/hotel-argos-in-cappadocia.html", "name": "Argos in Cappadocia"}, {"@type": "ListItem", "position": 73, "url": "https://vanehotels.com/hotel-domaine-de-murtoli.html", "name": "Domaine de Murtoli"}, {"@type": "ListItem", "position": 74, "url": "https://vanehotels.com/hotel-sao-lourenco-do-barrocal.html", "name": "São Lourenço do Barrocal"}, {"@type": "ListItem", "position": 75, "url": "https://vanehotels.com/hotel-cap-rocat.html", "name": "Cap Rocat"}, {"@type": "ListItem", "position": 76, "url": "https://vanehotels.com/hotel-du-lac.html", "name": "Hotel Du Lac"}, {"@type": "ListItem", "position": 77, "url": "https://vanehotels.com/hotel-monastero-santa-rosa.html", "name": "Monastero Santa Rosa"}, {"@type": "ListItem", "position": 78, "url": "https://vanehotels.com/hotel-minos-palace.html", "name": "Minos Palace"}, {"@type": "ListItem", "position": 79, "url": "https://vanehotels.com/hotel-sigma-residences.html", "name": "Sigma Residences"}, {"@type": "ListItem", "position": 80, "url": "https://vanehotels.com/hotel-manna.html", "name": "Manna"}, {"@type": "ListItem", "position": 81, "url": "https://vanehotels.com/hotel-w-costa-navarino.html", "name": "W Costa Navarino"}, {"@type": "ListItem", "position": 82, "url": "https://vanehotels.com/hotel-amanzoe.html", "name": "Amanzoe"}, {"@type": "ListItem", "position": 83, "url": "https://vanehotels.com/hotel-dexamenes.html", "name": "Dexamenes"}, {"@type": "ListItem", "position": 84, "url": "https://vanehotels.com/hotel-canaves-oia.html", "name": "Canaves Oia Suites"}, {"@type": "ListItem", "position": 85, "url": "https://vanehotels.com/hotel-four-seasons-astir.html", "name": "Four Seasons Astir"}, {"@type": "ListItem", "position": 86, "url": "https://vanehotels.com/hotel-euphoria.html", "name": "Euphoria Retreat"}, {"@type": "ListItem", "position": 87, "url": "https://vanehotels.com/hotel-domes-zeen.html", "name": "Domes Zeen"}]}</script>
@@ -188,75 +192,85 @@
 
 <section class="front" id="front">
   <div class="wrap">
-    <div class="col-head">
-      <h2 class="serif">The Front</h2>
-      <span class="label">The latest, across VANE</span>
-    </div>
-    <div class="fgrid">
-    <a class="fcard f1" href="bearings-when-the-mediterranean-dried-up-the-salt-giant-under-the-sea.html" data-reveal>
+    <header class="mast">
+      <div class="mast-top">
+        <span class="kick">The Front</span>
+        <span class="label" id="frontDate">Updated daily</span>
+      </div>
+      <h2 class="serif">The latest, across VANE.</h2>
+      <nav class="mast-cols label" aria-label="Sections">
+        <a href="#collection">Stay</a><a href="restaurants.html">Restaurants</a><a href="bearings.html">Bearings</a><a href="folio.html">Folio</a>
+      </nav>
+    </header>
+
+    <div class="fmosaic">
+    <div class="fm-a">
+    <a class="ftile ft-lead" href="folio-capo-batroun.html" data-reveal>
+      <div class="fimg"><img src="images/capo-batroun/hero.jpg" alt="Capo, Batroun, Lebanon" loading="lazy" decoding="async"></div>
+      <div class="fk">Folio</div>
+      <h3 class="serif">Capo</h3>
+      <p class="fdek">Carl Gerges's boutique resort on the Batroun shore, cast from beach sand and cement in five falling levels to the sea.</p>
+      <span class="loc">Batroun, Lebanon</span>
+    </a>
+    <div class="fm-side">
+    <a class="ftile ft-tall" href="bearings-when-the-mediterranean-dried-up-the-salt-giant-under-the-sea.html" data-reveal>
       <div class="fimg"><img src="images/journal/when-the-mediterranean-dried-up-the-salt-giant-under-the-sea.jpg" alt="When the Mediterranean dried up, the salt giant under the sea" loading="lazy" decoding="async"></div>
       <div class="fk">Bearings</div>
       <h3 class="serif">When the Mediterranean dried up, the salt giant under the sea</h3>
       <span class="loc">Ground Truth</span>
     </a>
-    <a class="fcard f2" href="folio-capo-batroun.html" data-reveal>
-      <div class="fimg"><img src="images/capo-batroun/hero.jpg" alt="Capo, Batroun, Lebanon" loading="lazy" decoding="async"></div>
-      <div class="fk">Folio</div>
-      <h3 class="serif">Capo</h3>
-      <span class="loc">Batroun, Lebanon</span>
-    </a>
-    <a class="fcard f3" href="hotel-san-canzian.html" data-reveal>
-      <div class="fimg"><img src="images/san-canzian/hero.jpg" alt="A stone villa and pool among olive trees in the hills of Istria at San Canzian" loading="lazy" decoding="async"></div>
-      <div class="fk">Stay</div>
-      <h3 class="serif">San Canzian</h3>
-      <span class="loc">Istria, Croatia</span>
-    </a>
-    <a class="fcard f4" href="restaurant-aponiente.html" data-reveal>
+    <a class="ftile ft-compact" href="restaurant-aponiente.html" data-reveal>
       <div class="fimg"><img src="images/restaurants/aponiente.jpg" alt="Aponiente, El Puerto de Santa María" loading="lazy" decoding="async"></div>
-      <div class="fk">Restaurant</div>
-      <h3 class="serif">Aponiente</h3>
-      <span class="loc">El Puerto de Santa María</span>
+      <div class="ftxt">
+        <div class="fk">Restaurant</div>
+        <h3 class="serif">Aponiente</h3>
+        <span class="loc">El Puerto de Santa María</span>
+      </div>
     </a>
-    <a class="fcard f5" href="bearings-ravello-festival-2026-music-above-the-amalfi-sea.html" data-reveal>
-      <div class="fimg"><img src="images/journal/ravello-festival-2026-music-above-the-amalfi-sea.jpg" alt="The Ravello Festival 2026, music above the Amalfi sea" loading="lazy" decoding="async"></div>
-      <div class="fk">Bearings</div>
-      <h3 class="serif">The Ravello Festival 2026, music above the Amalfi sea</h3>
-      <span class="loc">The Edit</span>
+    </div>
+    </div>
+
+    <div class="fm-rule"><span class="label">In rotation, from the collection</span></div>
+    <div class="fm-b">
+    <!-- VANE-FEATURED-START -->
+    <a class="ftile ft-s1" href="hotel-amanzoe.html" data-reveal>
+      <div class="fimg"><img src="images/amanzoe/hero.jpg" alt="Amanzoe" loading="lazy" decoding="async"></div>
+      <div class="fk">Stay</div>
+      <h3 class="serif">Amanzoe</h3>
+      <p class="fdek">A temple over the gulf</p>
     </a>
-    <a class="fcard f6" href="folio-dar-said.html" data-reveal>
+    <a class="ftile ft-s2" href="hotel-w-costa-navarino.html" data-reveal>
+      <div class="fimg"><img src="images/w-costa-navarino/wcn-pool-sunset.jpg" alt="W Costa Navarino" loading="lazy" decoding="async"></div>
+      <div class="fk">Stay</div>
+      <h3 class="serif">W Costa Navarino</h3>
+      <p class="fdek">Messinia, end to end</p>
+    </a>
+    <a class="ftile ft-s3" href="hotel-argos-in-cappadocia.html" data-reveal>
+      <div class="fimg"><img src="images/argos-in-cappadocia/hero.jpg" alt="Argos in Cappadocia" loading="lazy" decoding="async"></div>
+      <div class="fk">Stay</div>
+      <h3 class="serif">Argos in Cappadocia</h3>
+      <p class="fdek">Cut from the rock</p>
+    </a>
+    <!-- VANE-FEATURED-END -->
+    </div>
+
+    <div class="fm-c">
+    <a class="ftile ft-port" href="bearings-lardo-di-colonnata-the-fat-cured-in-carraras-marble.html" data-reveal>
+      <div class="fimg"><img src="images/journal/lardo-di-colonnata-the-fat-cured-in-carraras-marble.jpg" alt="Lardo di Colonnata, aged in marble basins above Carrara" loading="lazy" decoding="async"></div>
+      <div class="fk">The Table</div>
+      <h3 class="serif">Lardo di Colonnata, the fat cured in Carrara's marble</h3>
+      <span class="loc">Bearings</span>
+    </a>
+    <a class="ftile ft-wide" href="folio-dar-said.html" data-reveal>
       <div class="fimg"><img src="images/dar-said/hero.jpg" alt="The rooftop terrace at Dar Saïd above the whitewashed roofs of Sidi Bou Saïd" loading="lazy" decoding="async"></div>
       <div class="fk">Folio</div>
       <h3 class="serif">Dar Saïd</h3>
       <span class="loc">Sidi Bou Saïd, Tunisia</span>
     </a>
     </div>
+    </div>
   </div>
 </section>
-
-<a class="vane-band" href="hotel-amanzoe.html" aria-label="Amanzoe" style="background-image:url('images/amanzoe/hero.jpg')">
-  <div class="vane-band__overlay"></div>
-  <div class="vane-band__content">
-    <h2 class="vane-band__title">Amanzoe</h2>
-    <p class="vane-band__motto">A temple over the gulf</p>
-    <span class="vane-band__more">Read more &rarr;</span>
-  </div>
-</a>
-<a class="vane-band" href="hotel-w-costa-navarino.html" aria-label="W Costa Navarino" style="background-image:url('images/w-costa-navarino/hero.jpg')">
-  <div class="vane-band__overlay"></div>
-  <div class="vane-band__content">
-    <h2 class="vane-band__title">W Costa Navarino</h2>
-    <p class="vane-band__motto">Messinia, end to end</p>
-    <span class="vane-band__more">Read more &rarr;</span>
-  </div>
-</a>
-<a class="vane-band" href="hotel-argos-in-cappadocia.html" aria-label="Argos in Cappadocia" style="background-image:url('images/argos-in-cappadocia/hero.jpg')">
-  <div class="vane-band__overlay"></div>
-  <div class="vane-band__content">
-    <h2 class="vane-band__title">Argos in Cappadocia</h2>
-    <p class="vane-band__motto">Cut from the rock</p>
-    <span class="vane-band__more">Read more &rarr;</span>
-  </div>
-</a>
 
 <div class="filterbar">
   <div class="wrap filter-in">
@@ -822,14 +836,6 @@
 </section>
 
 
-<a class="vane-band" href="folio.html" aria-label="VANE Folio, the long read" style="background-image:url('images/dexamenes/g1.jpg')">
-  <div class="vane-band__overlay"></div>
-  <div class="vane-band__content">
-    <h2 class="vane-band__title">Folio</h2>
-    <p class="vane-band__motto">The long read, a close reading of a single house</p>
-    <span class="vane-band__more">Enter the Folio &rarr;</span>
-  </div>
-</a>
 
 <section class="credo" id="credo">
   <div class="wrap">
@@ -905,31 +911,8 @@
 </script>
 
 <script>
-  /* VANE bands — reliable scroll reveal (IntersectionObserver + staggered CSS, every browser, independent per band). Text is visible by default; only armed on capable desktops, so it can never stay hidden. */
-  (function(){
-    var bands = Array.prototype.slice.call(document.querySelectorAll('.vane-band'));
-    if(!bands.length) return;
-    var ok = window.matchMedia('(min-width:1024px) and (prefers-reduced-motion: no-preference)').matches;
-    if(!ok || !('IntersectionObserver' in window)) return; // leave everything fully visible
-    try{
-      bands.forEach(function(b){
-        var t = b.querySelector('.vane-band__title'); if(!t) return;
-        var text = t.textContent, n = 0; t.textContent = '';
-        text.split('').forEach(function(c,i){
-          var sp = document.createElement('span'); sp.className = 'ch'; sp.style.setProperty('--i', i); sp.textContent = c; t.appendChild(sp); n = i;
-        });
-        b.style.setProperty('--n', n + 1);
-        b.classList.add('armed');
-      });
-      // fire when the TITLE reaches the central band of the viewport (not when the tall band's edge enters),
-      // so the typing plays exactly as the title comes into view.
-      var io = new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if(e.isIntersecting){ var band = e.target.closest('.vane-band'); if(band){ band.classList.add('in'); io.unobserve(e.target); } }
-        });
-      }, { rootMargin:'-28% 0px -28% 0px', threshold:0 });
-      bands.forEach(function(b){ var t = b.querySelector('.vane-band__title'); if(t) io.observe(t); });
-    }catch(err){ bands.forEach(function(b){ b.classList.remove('armed'); }); }
+  (function(){ var d=document.getElementById('frontDate'); if(!d) return;
+    try{ d.textContent = new Date().toLocaleDateString('en-GB',{month:'long',year:'numeric',timeZone:'Europe/Athens'}) + ' \u00b7 Updated daily'; }catch(e){}
   })();
 </script>
 
