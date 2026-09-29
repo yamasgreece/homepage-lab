@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base href="https://vanehotels.com/">
+<meta name="robots" content="noindex">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow, max-image-preview:large">
+<meta name="google-site-verification" content="LZD8B767yx-FJxwzKuJ0pgcKOUAzVwbz2yXeesH5OoQ">
+<title>VANE. A curated collection of Mediterranean stays</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>
+  :root{--paper:#FFFFFF;--ink:#141312;--soft:#8C8881;--line:#ECEAE5;--red:#D8362B}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;font-weight:400;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip}
+  .serif{font-family:'Newsreader',Georgia,serif;font-weight:400}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+  a{color:inherit;text-decoration:none}
+  .label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft)}
+  header.nav{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .brand{font-size:19px;font-weight:300;letter-spacing:.42em}
+  .brand .dot{color:var(--red)}
+  .nav-links{display:flex;gap:38px}
+  .nav-links a{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+  .nav-links a:hover{color:var(--ink)}
+  .hero{padding:120px 0 90px}
+  .hero .label{margin-bottom:30px}
+  .hero h1{font-family:'Newsreader',serif;font-weight:300;font-size:clamp(40px,6.2vw,76px);line-height:1.08;letter-spacing:-.015em;max-width:19ch}
+  .hero h1 em{font-style:italic;color:var(--red)}
+  .hero .sub{margin-top:34px;max-width:50ch;color:var(--soft);font-size:18px;font-weight:300}
+  .hero .by{margin-top:40px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink)}
+  .filterbar{position:sticky;top:74px;z-index:9;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .filter-in{display:flex;gap:30px;flex-wrap:wrap;padding:20px 0}
+  .filter-in a{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);position:relative;cursor:pointer;padding-bottom:2px}
+  .filter-in a.active{color:var(--ink)}
+  .filter-in a.active::after{content:"";position:absolute;left:0;right:0;bottom:-21px;height:2px;background:var(--red)}
+  .filter-in a:hover{color:var(--ink)}
+  .fbreak{display:none}
+  .collection{padding:64px 0 30px;min-height:60vh}
+  .col-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:46px}
+  .col-head h2{font-family:'Newsreader',serif;font-weight:300;font-size:30px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:54px 40px}
+  .item{cursor:pointer;display:block}
+  .item .img{aspect-ratio:4/5;background:#EFEDE9;position:relative;overflow:hidden}
+  .item .img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+  .item:hover .img img{transform:scale(1.04)}
+  .item .img .tag{position:absolute;top:14px;left:14px;background:var(--red);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#fff;padding:6px 11px;z-index:2}
+  .item .meta{display:flex;justify-content:space-between;align-items:baseline;margin-top:18px;gap:14px}
+  .item h3{font-family:'Newsreader',serif;font-weight:400;font-size:23px;line-height:1.2}
+  .item .loc{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);white-space:nowrap;padding-top:4px}
+  .item p{margin-top:8px;color:var(--soft);font-size:14.5px;font-weight:300;line-height:1.5}
+  .empty{display:none;color:var(--soft);font-weight:300;padding:30px 0}
+  .credo{padding:120px 0;text-align:center;border-top:1px solid var(--line);margin-top:70px}
+  .credo p{font-family:'Newsreader',serif;font-weight:300;font-style:italic;font-size:clamp(24px,3.4vw,38px);line-height:1.35;max-width:24ch;margin:0 auto}
+  .credo p .q{color:var(--red);font-style:normal}
+  .credo .label{margin-top:26px}
+  .news{padding:0 0 120px;text-align:center}
+  .news .form{max-width:420px;margin:26px auto 0;text-align:left}
+  .news .row{display:flex;border-bottom:1.5px solid var(--ink)}
+  .news input[type=email]{flex:1;border:none;background:transparent;padding:12px 4px;font-family:inherit;font-size:15px;outline:none}
+  .news button{border:none;background:transparent;font-family:inherit;font-size:11px;letter-spacing:.42em;text-transform:uppercase;cursor:pointer;color:var(--red);font-weight:500}
+  .news button[disabled]{opacity:.45;cursor:default}
+  .news .consent{display:flex;gap:9px;align-items:flex-start;margin-top:14px;font-size:12px;line-height:1.5;color:var(--soft);font-weight:300;cursor:pointer}
+  .news .consent input{margin-top:2px;accent-color:var(--red);flex:none}
+  .news .formmsg{min-height:18px;margin-top:12px;font-size:12.5px;line-height:1.5;color:var(--soft);font-weight:300}
+  .news .formmsg.ok{color:var(--ink)}
+  .news .formmsg.err{color:var(--red)}
+  footer{border-top:1px solid var(--line);padding:48px 0}
+  .foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;align-items:center}
+  .foot-in .note{max-width:48ch;font-size:12.5px;color:var(--soft);font-weight:300;line-height:1.6}
+  @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.nav-links{gap:22px}.nav-links a{font-size:11px;letter-spacing:.08em}.filterbar{top:0}}
+  @media(max-width:700px){.filter-in{flex-wrap:wrap;justify-content:center;gap:13px 22px;padding:15px 0}.filter-in a{white-space:nowrap}.fbreak{display:block;flex-basis:100%;height:0;margin:0}.filter-in a.active::after{bottom:-5px}}
+  @media(max-width:560px){.grid{grid-template-columns:1fr}.wrap{padding:0 24px}.brand{letter-spacing:.26em}.nav-links{gap:15px}.nav-links a{font-size:10px;letter-spacing:.04em}.nl-collection{display:none}.hero{padding:50px 0 52px}.hero .label{margin-bottom:18px}.hero h1{font-size:31px;line-height:1.16;letter-spacing:-.01em;max-width:none}.hero .sub{margin-top:20px;font-size:15.5px;line-height:1.55;max-width:none}.hero .by{margin-top:24px;letter-spacing:.18em}}
+  /* The Front: the latest pieces across VANE, image-led */
+  .front{padding:10px 0 100px}
+  .fgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:70px 40px}
+  .fcard{display:block}
+  .fcard.f1,.fcard.f4{grid-column:span 7}
+  .fcard.f2,.fcard.f3{grid-column:span 5}
+  .fcard.f5,.fcard.f6{grid-column:span 6}
+  .fcard .fimg{height:clamp(360px,44vw,620px);background:#EFEDE9;overflow:hidden}
+  .fcard.f5 .fimg,.fcard.f6 .fimg{height:clamp(320px,38vw,540px)}
+  .fcard .fimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s ease}
+  .fcard:hover .fimg img{transform:scale(1.03)}
+  .fcard .fk{margin-top:22px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);font-weight:500}
+  .fcard h3{font-family:'Newsreader',serif;font-weight:300;font-size:clamp(24px,2.4vw,34px);line-height:1.16;letter-spacing:-.005em;margin-top:10px;max-width:26ch}
+  .fcard .loc{display:block;margin-top:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+  .grid.collapsed .item:nth-child(n+10){display:none}
+  .explore{display:flex;flex-direction:column;align-items:center;gap:20px;padding:64px 0 10px}
+  .explore.done{display:none}
+  .explore-btn{display:inline-block;border:1px solid var(--ink);padding:17px 34px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;transition:background .3s ease,color .3s ease}
+  .explore-btn:hover{background:var(--ink);color:#fff}
+  .explore .label:hover,.more-link:hover{color:var(--ink)}
+  .latest{padding-top:120px;padding-bottom:40px}
+  .lrow+.lrow{margin-top:96px}
+  .lgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+  .lcard .fimg,.fcard.lcard .fimg{height:auto;aspect-ratio:3/2}
+  .fcard.lcard h3{font-size:21px;font-weight:400;line-height:1.22}
+  .fcard.lcard .fk{margin-top:18px}
+  @media(max-width:900px){.fgrid{grid-template-columns:1fr 1fr;gap:54px 24px}.fcard.f1,.fcard.f2,.fcard.f3,.fcard.f4,.fcard.f5,.fcard.f6{grid-column:span 1}.fcard.f1,.fcard.f6{grid-column:1/-1}.fcard .fimg,.fcard.f5 .fimg,.fcard.f6 .fimg{height:auto;aspect-ratio:4/5}.fcard.f1 .fimg,.fcard.f6 .fimg{aspect-ratio:3/2}.lgrid{gap:24px}.fcard.lcard h3{font-size:18px}}
+  @media(max-width:560px){.front{padding-bottom:70px}.fgrid{grid-template-columns:1fr;gap:48px}.fcard.f1,.fcard.f6{grid-column:auto}.fcard .fimg,.fcard.f1 .fimg,.fcard.f6 .fimg{aspect-ratio:4/5}.fcard h3{font-size:25px}.latest{padding-top:80px}.lrow+.lrow{margin-top:70px}.lgrid{grid-template-columns:1fr 1fr;gap:28px 16px}.lgrid .lcard:nth-child(3){display:none}.lcard .fimg,.fcard.lcard .fimg{aspect-ratio:4/5}.fcard.lcard h3{font-size:17px}.explore{padding-top:48px}}
+  /* VANE — full-width feature bands woven between collection rows */
+  .vane-band{position:relative;display:block;width:100%;height:88vh;min-height:560px;overflow:hidden;background-color:#0F0E0D;background-position:center;background-size:cover;background-repeat:no-repeat;background-attachment:fixed;margin:10px 0}
+  .vane-band__overlay{position:absolute;inset:0;background:radial-gradient(ellipse 92% 70% at 50% 50%,rgba(0,0,0,.5),rgba(0,0,0,.16) 48%,rgba(0,0,0,0) 82%);z-index:1}
+  /* elegant lighting: a soft top light + a one-time diagonal sheen that sweeps when the band reveals */
+  .vane-band::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 85% at 50% -12%,rgba(255,255,255,.12),rgba(255,255,255,0) 58%);pointer-events:none;z-index:1}
+  .vane-band::after{content:"";position:absolute;top:0;left:-65%;width:55%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.16),transparent);transform:skewX(-12deg);opacity:0;pointer-events:none;z-index:1}
+  .vane-band.in::after{animation:vsheen 1.6s ease .35s 1 both}
+  @keyframes vsheen{0%{left:-65%;opacity:0}14%{opacity:1}100%{left:125%;opacity:0}}
+  .vane-band__content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-inline:clamp(24px,6vw,120px)}
+  .vane-band__title{font-family:'Newsreader',Georgia,serif;font-weight:300;color:#fff;font-size:clamp(42px,7vw,116px);line-height:1.02;letter-spacing:-.01em;text-shadow:0 2px 44px rgba(0,0,0,.55),0 1px 3px rgba(0,0,0,.45)}
+  .vane-band__motto{font-family:'futura-pt','Jost','Helvetica Neue',sans-serif;font-weight:600;color:#fff;font-size:clamp(13px,1.1vw,16px);letter-spacing:3px;text-transform:uppercase;margin-top:22px;text-shadow:0 1px 22px rgba(0,0,0,.6)}
+  .vane-band__more{display:inline-block;margin-top:30px;font-family:'futura-pt','Jost','Helvetica Neue',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#fff;border-bottom:1px solid rgba(255,255,255,.55);padding-bottom:5px;transition:border-color .35s ease}
+  .vane-band:hover .vane-band__more{border-color:#fff}
+  /* reliable IntersectionObserver staggered char reveal — works in every browser, independent per band. Visible by default; only armed on desktop. */
+  .vane-band__title .ch{display:inline-block;white-space:pre}
+  .vane-band.armed .vane-band__title .ch{opacity:0;transform:translateY(.5em);transition:opacity .55s ease,transform .65s cubic-bezier(.22,.61,.36,1)}
+  .vane-band.armed.in .vane-band__title .ch{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 0.035s)}
+  .vane-band.armed .vane-band__motto,.vane-band.armed .vane-band__more{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+  .vane-band.armed.in .vane-band__motto{opacity:1;transform:none;transition-delay:calc(var(--n,8) * 0.035s + 0.10s)}
+  .vane-band.armed.in .vane-band__more{opacity:1;transform:none;transition-delay:calc(var(--n,8) * 0.035s + 0.26s)}
+  @media(max-width:1023px){.vane-band{background-attachment:scroll;height:62vh;min-height:420px}}
+  @media(prefers-reduced-motion:reduce){.vane-band{background-attachment:scroll}.vane-band.armed .vane-band__title .ch,.vane-band.armed .vane-band__motto,.vane-band.armed .vane-band__more{opacity:1!important;transform:none!important;transition:none!important}.vane-band.in::after{animation:none}}
+</style>
+<!-- VANE-ITEMLIST-START -->
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "VANE — the collection of Mediterranean hotels", "numberOfItems": 87, "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://vanehotels.com/hotel-borgo-santandrea.html", "name": "Borgo Santandrea"}, {"@type": "ListItem", "position": 2, "url": "https://vanehotels.com/hotel-espera-suites.html", "name": "Espera Suites"}, {"@type": "ListItem", "position": 3, "url": "https://vanehotels.com/hotel-beresheet.html", "name": "Beresheet"}, {"@type": "ListItem", "position": 4, "url": "https://vanehotels.com/hotel-hacienda-na-xamena.html", "name": "Hacienda Na Xamena"}, {"@type": "ListItem", "position": 5, "url": "https://vanehotels.com/hotel-villa-belle-epoque.html", "name": "Villa Belle Époque"}, {"@type": "ListItem", "position": 6, "url": "https://vanehotels.com/hotel-albergo.html", "name": "Hotel Albergo"}, {"@type": "ListItem", "position": 7, "url": "https://vanehotels.com/hotel-castello-di-reschio.html", "name": "Castello di Reschio"}, {"@type": "ListItem", "position": 8, "url": "https://vanehotels.com/hotel-green-coast-hotel.html", "name": "Green Coast Hotel"}, {"@type": "ListItem", "position": 9, "url": "https://vanehotels.com/hotel-vander-urbani-resort.html", "name": "Vander Urbani Resort"}, {"@type": "ListItem", "position": 10, "url": "https://vanehotels.com/hotel-anassa.html", "name": "Anassa"}, {"@type": "ListItem", "position": 11, "url": "https://vanehotels.com/hotel-areias-do-seixo.html", "name": "Areias do Seixo"}, {"@type": "ListItem", "position": 12, "url": "https://vanehotels.com/hotel-la-maison-bleue.html", "name": "La Maison Bleue"}, {"@type": "ListItem", "position": 13, "url": "https://vanehotels.com/hotel-dar-hi.html", "name": "Dar Hi"}, {"@type": "ListItem", "position": 14, "url": "https://vanehotels.com/hotel-heure-bleue.html", "name": "L'Heure Bleue Palais"}, {"@type": "ListItem", "position": 15, "url": "https://vanehotels.com/hotel-the-jaffa.html", "name": "The Jaffa"}, {"@type": "ListItem", "position": 16, "url": "https://vanehotels.com/hotel-rosselli-ax-privilege.html", "name": "Rosselli AX Privilege"}, {"@type": "ListItem", "position": 17, "url": "https://vanehotels.com/hotel-monaci-delle-terre-nere.html", "name": "Monaci delle Terre Nere"}, {"@type": "ListItem", "position": 18, "url": "https://vanehotels.com/hotel-chedi-lustica-bay.html", "name": "The Chedi Luštica Bay"}, {"@type": "ListItem", "position": 19, "url": "https://vanehotels.com/hotel-lily-of-the-valley.html", "name": "Lily of the Valley"}, {"@type": "ListItem", "position": 20, "url": "https://vanehotels.com/hotel-alavya.html", "name": "Alavya"}, {"@type": "ListItem", "position": 21, "url": "https://vanehotels.com/hotel-meneghetti.html", "name": "Meneghetti"}, {"@type": "ListItem", "position": 22, "url": "https://vanehotels.com/hotel-the-phoenicia-malta.html", "name": "The Phoenicia Malta"}, {"@type": "ListItem", "position": 23, "url": "https://vanehotels.com/hotel-dar-ben-gacem.html", "name": "Dar Ben Gacem"}, {"@type": "ListItem", "position": 24, "url": "https://vanehotels.com/hotel-bkerzay.html", "name": "Bkerzay"}, {"@type": "ListItem", "position": 25, "url": "https://vanehotels.com/hotel-mas-de-torrent.html", "name": "Mas de Torrent"}, {"@type": "ListItem", "position": 26, "url": "https://vanehotels.com/hotel-beit-al-batroun.html", "name": "Beit al Batroun"}, {"@type": "ListItem", "position": 27, "url": "https://vanehotels.com/hotel-torre-de-palma.html", "name": "Torre de Palma Wine Hotel"}, {"@type": "ListItem", "position": 28, "url": "https://vanehotels.com/hotel-hacienda-de-san-rafael.html", "name": "Hacienda de San Rafael"}, {"@type": "ListItem", "position": 29, "url": "https://vanehotels.com/hotel-efendi.html", "name": "Efendi Hotel"}, {"@type": "ListItem", "position": 30, "url": "https://vanehotels.com/hotel-capo-batroun.html", "name": "Capo"}, {"@type": "ListItem", "position": 31, "url": "https://vanehotels.com/hotel-lopud-1483.html", "name": "Lopud 1483"}, {"@type": "ListItem", "position": 32, "url": "https://vanehotels.com/hotel-kasbah-bab-ourika.html", "name": "Kasbah Bab Ourika"}, {"@type": "ListItem", "position": 33, "url": "https://vanehotels.com/hotel-hisa-franko.html", "name": "Hiša Franko"}, {"@type": "ListItem", "position": 34, "url": "https://vanehotels.com/hotel-dar-el-jeld.html", "name": "Dar El Jeld Hotel &amp; Spa"}, {"@type": "ListItem", "position": 35, "url": "https://vanehotels.com/hotel-al-moudira.html", "name": "Al Moudira"}, {"@type": "ListItem", "position": 36, "url": "https://vanehotels.com/hotel-empire-beach-resort.html", "name": "Empire Beach Resort"}, {"@type": "ListItem", "position": 37, "url": "https://vanehotels.com/hotel-elma-arts-complex.html", "name": "Elma Arts Complex"}, {"@type": "ListItem", "position": 38, "url": "https://vanehotels.com/hotel-le-grotte-della-civita.html", "name": "Sextantio Le Grotte della Civita"}, {"@type": "ListItem", "position": 39, "url": "https://vanehotels.com/hotel-palazzo-radomiri.html", "name": "Palazzo Radomiri"}, {"@type": "ListItem", "position": 40, "url": "https://vanehotels.com/hotel-apokryfo.html", "name": "Apokryfo"}, {"@type": "ListItem", "position": 41, "url": "https://vanehotels.com/hotel-vila-planinka.html", "name": "Vila Planinka"}, {"@type": "ListItem", "position": 42, "url": "https://vanehotels.com/hotel-adrere-amellal.html", "name": "Adrère Amellal"}, {"@type": "ListItem", "position": 43, "url": "https://vanehotels.com/hotel-son-brull.html", "name": "Son Brull"}, {"@type": "ListItem", "position": 44, "url": "https://vanehotels.com/hotel-lazure-hotel-marina.html", "name": "Lazure Hotel &amp; Marina"}, {"@type": "ListItem", "position": 45, "url": "https://vanehotels.com/hotel-sublime-comporta.html", "name": "Sublime Comporta"}, {"@type": "ListItem", "position": 46, "url": "https://vanehotels.com/hotel-the-romanos.html", "name": "The Romanos"}, {"@type": "ListItem", "position": 47, "url": "https://vanehotels.com/hotel-casa-dell-arte.html", "name": "Casa dell'Arte"}, {"@type": "ListItem", "position": 48, "url": "https://vanehotels.com/hotel-lesic-dimitri-palace.html", "name": "Lešić Dimitri Palace"}, {"@type": "ListItem", "position": 49, "url": "https://vanehotels.com/hotel-xara-palace.html", "name": "The Xara Palace"}, {"@type": "ListItem", "position": 50, "url": "https://vanehotels.com/hotel-the-norman-tel-aviv.html", "name": "The Norman"}, {"@type": "ListItem", "position": 51, "url": "https://vanehotels.com/hotel-la-reserve-ramatuelle.html", "name": "La Réserve Ramatuelle"}, {"@type": "ListItem", "position": 52, "url": "https://vanehotels.com/hotel-su-gologone.html", "name": "Su Gologone Experience Hotel"}, {"@type": "ListItem", "position": 53, "url": "https://vanehotels.com/hotel-aman-sveti-stefan.html", "name": "Aman Sveti Stefan"}, {"@type": "ListItem", "position": 54, "url": "https://vanehotels.com/hotel-menorca-experimental.html", "name": "Menorca Experimental"}, {"@type": "ListItem", "position": 55, "url": "https://vanehotels.com/hotel-el-fenn.html", "name": "El Fenn"}, {"@type": "ListItem", "position": 56, "url": "https://vanehotels.com/hotel-vermelho.html", "name": "Vermelho"}, {"@type": "ListItem", "position": 57, "url": "https://vanehotels.com/hotel-mythic-villa.html", "name": "Mythic Villa"}, {"@type": "ListItem", "position": 58, "url": "https://vanehotels.com/hotel-maslina-resort.html", "name": "Maslina Resort"}, {"@type": "ListItem", "position": 59, "url": "https://vanehotels.com/hotel-macakizi.html", "name": "Maçakızı"}, {"@type": "ListItem", "position": 60, "url": "https://vanehotels.com/hotel-la-donaira.html", "name": "La Donaira"}, {"@type": "ListItem", "position": 61, "url": "https://vanehotels.com/hotel-capofaro.html", "name": "Capofaro"}, {"@type": "ListItem", "position": 62, "url": "https://vanehotels.com/hotel-la-mirande.html", "name": "La Mirande"}, {"@type": "ListItem", "position": 63, "url": "https://vanehotels.com/hotel-villa-la-coste.html", "name": "Villa La Coste"}, {"@type": "ListItem", "position": 64, "url": "https://vanehotels.com/hotel-la-colombe-dor.html", "name": "La Colombe d'Or"}, {"@type": "ListItem", "position": 65, "url": "https://vanehotels.com/hotel-masseria-moroseta.html", "name": "Masseria Moroseta"}, {"@type": "ListItem", "position": 66, "url": "https://vanehotels.com/hotel-iniala-valletta.html", "name": "Iniala Valletta"}, {"@type": "ListItem", "position": 67, "url": "https://vanehotels.com/hotel-dar-ahlam.html", "name": "Dar Ahlam"}, {"@type": "ListItem", "position": 68, "url": "https://vanehotels.com/hotel-ammothines-cycladic-suites.html", "name": "Ammothines Cycladic Suites"}, {"@type": "ListItem", "position": 69, "url": "https://vanehotels.com/hotel-casale-panayiotis.html", "name": "Casale Panayiotis"}, {"@type": "ListItem", "position": 70, "url": "https://vanehotels.com/hotel-casa-massina.html", "name": "Casa Massina"}, {"@type": "ListItem", "position": 71, "url": "https://vanehotels.com/hotel-villa-nai-3-3.html", "name": "Villa Nai 3.3"}, {"@type": "ListItem", "position": 72, "url": "https://vanehotels.com/hotel-argos-in-cappadocia.html", "name": "Argos in Cappadocia"}, {"@type": "ListItem", "position": 73, "url": "https://vanehotels.com/hotel-domaine-de-murtoli.html", "name": "Domaine de Murtoli"}, {"@type": "ListItem", "position": 74, "url": "https://vanehotels.com/hotel-sao-lourenco-do-barrocal.html", "name": "São Lourenço do Barrocal"}, {"@type": "ListItem", "position": 75, "url": "https://vanehotels.com/hotel-cap-rocat.html", "name": "Cap Rocat"}, {"@type": "ListItem", "position": 76, "url": "https://vanehotels.com/hotel-du-lac.html", "name": "Hotel Du Lac"}, {"@type": "ListItem", "position": 77, "url": "https://vanehotels.com/hotel-monastero-santa-rosa.html", "name": "Monastero Santa Rosa"}, {"@type": "ListItem", "position": 78, "url": "https://vanehotels.com/hotel-minos-palace.html", "name": "Minos Palace"}, {"@type": "ListItem", "position": 79, "url": "https://vanehotels.com/hotel-sigma-residences.html", "name": "Sigma Residences"}, {"@type": "ListItem", "position": 80, "url": "https://vanehotels.com/hotel-manna.html", "name": "Manna"}, {"@type": "ListItem", "position": 81, "url": "https://vanehotels.com/hotel-w-costa-navarino.html", "name": "W Costa Navarino"}, {"@type": "ListItem", "position": 82, "url": "https://vanehotels.com/hotel-amanzoe.html", "name": "Amanzoe"}, {"@type": "ListItem", "position": 83, "url": "https://vanehotels.com/hotel-dexamenes.html", "name": "Dexamenes"}, {"@type": "ListItem", "position": 84, "url": "https://vanehotels.com/hotel-canaves-oia.html", "name": "Canaves Oia Suites"}, {"@type": "ListItem", "position": 85, "url": "https://vanehotels.com/hotel-four-seasons-astir.html", "name": "Four Seasons Astir"}, {"@type": "ListItem", "position": 86, "url": "https://vanehotels.com/hotel-euphoria.html", "name": "Euphoria Retreat"}, {"@type": "ListItem", "position": 87, "url": "https://vanehotels.com/hotel-domes-zeen.html", "name": "Domes Zeen"}]}</script>
+<!-- VANE-ITEMLIST-END -->
+  <link rel="stylesheet" href="/css/vane-nav.css">
+<!-- VANE-META-START -->
+<meta name="description" content="A curated collection of Mediterranean hotels and their restaurants, chosen with a critic&#x27;s eye. No scores, curation is the verdict.">
+<meta name="author" content="Dimitris Stathopoulos">
+<link rel="canonical" href="https://vanehotels.com/">
+<link rel="alternate" hreflang="en" href="https://vanehotels.com/">
+<link rel="alternate" hreflang="el" href="https://vanehotels.com/gr/">
+<link rel="alternate" hreflang="x-default" href="https://vanehotels.com/">
+<link rel="alternate" type="application/rss+xml" title="VANE — reviews feed" href="/feed.xml">
+<link rel="alternate" type="application/feed+json" title="VANE — reviews feed (JSON)" href="/feed.json">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VANE">
+<meta property="og:title" content="VANE. A curated collection of Mediterranean stays">
+<meta property="og:description" content="A curated collection of Mediterranean hotels and their restaurants, chosen with a critic&#x27;s eye. No scores, curation is the verdict.">
+<meta property="og:url" content="https://vanehotels.com/">
+<meta property="og:image" content="https://vanehotels.com/images/san-canzian/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="VANE. A curated collection of Mediterranean stays">
+<meta name="twitter:description" content="A curated collection of Mediterranean hotels and their restaurants, chosen with a critic&#x27;s eye. No scores, curation is the verdict.">
+<meta name="twitter:image" content="https://vanehotels.com/images/san-canzian/hero.jpg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#141312">
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied'});</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4SLXG3YNCT"></script>
+<script>gtag('js',new Date());gtag('config','G-4SLXG3YNCT');</script>
+<script>(function(){var K='vane_consent',s=null;try{s=localStorage.getItem(K);}catch(e){}if(s==='granted'){gtag('consent','update',{'analytics_storage':'granted','ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted'});return;}if(s==='denied'){return;}document.addEventListener('DOMContentLoaded',function(){var b=document.createElement('div');b.setAttribute('role','dialog');b.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#141312;color:#fff;font-family:Inter,system-ui,sans-serif;font-size:13px;line-height:1.5;padding:15px 20px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:center';b.innerHTML='<span style="max-width:540px">We use cookies to measure traffic and improve VANE. <a href="/about.html" style="color:#fff;text-decoration:underline">More</a></span>';function mk(t,bg,fg,bd){var x=document.createElement('button');x.textContent=t;x.style.cssText='cursor:pointer;font:inherit;letter-spacing:.06em;text-transform:uppercase;font-size:11px;padding:9px 16px;border:'+bd+';background:'+bg+';color:'+fg;return x;}var ok=mk('Accept','#D8362B','#fff','none'),no=mk('Decline','transparent','#fff','1px solid rgba(255,255,255,.5)');function close(v){try{localStorage.setItem(K,v);}catch(e){}b.remove();}ok.onclick=function(){gtag('consent','update',{'analytics_storage':'granted','ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted'});close('granted');};no.onclick=function(){close('denied');};b.appendChild(ok);b.appendChild(no);document.body.appendChild(b);});})();</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "name": "VANE", "url": "https://vanehotels.com/", "logo": {"@type": "ImageObject", "url": "https://vanehotels.com/favicon.svg"}, "description": "A curated collection of Mediterranean hotels and their restaurants, chosen with a critic's eye. No scores, curation is the verdict."}, {"@type": "WebSite", "name": "VANE", "url": "https://vanehotels.com/", "description": "A curated collection of Mediterranean hotels and their restaurants, chosen with a critic's eye. No scores, curation is the verdict."}]}</script>
+<!-- VANE-META-END -->
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <div class="brand">VANE<span class="dot">.</span></div>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#collection" class="nl-collection">The Collection</a>
+      <a href="restaurants.html">Restaurants</a>
+      <a href="bearings.html">Bearings</a>
+      <a href="folio.html">Folio</a>
+      <a href="list.html">Guides</a>
+      <a href="map.html">Map</a>
+      <a href="play.html">Play</a>
+      <a href="concierge.html">Plan With Me</a>
+      <a href="about.html">About</a>
+      <a href="/gr/">ΕΛ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero wrap">
+  <div class="label">A curated collection, Mediterranean first</div>
+  <h1 class="serif">A few places, chosen by hand. Where you stay and where you dine, <em>judged as one.</em></h1>
+  <p class="sub">We don't rate. We select. If a place is here, it cleared the bar.</p>
+  <div class="by">by Dimitris Stathopoulos</div>
+</section>
+
+<section class="front" id="front">
+  <div class="wrap">
+    <div class="col-head">
+      <h2 class="serif">The Front</h2>
+      <span class="label">The latest, across VANE</span>
+    </div>
+    <div class="fgrid">
+    <a class="fcard f1" href="bearings-when-the-mediterranean-dried-up-the-salt-giant-under-the-sea.html" data-reveal>
+      <div class="fimg"><img src="images/journal/when-the-mediterranean-dried-up-the-salt-giant-under-the-sea.jpg" alt="When the Mediterranean dried up, the salt giant under the sea" loading="lazy" decoding="async"></div>
+      <div class="fk">Bearings</div>
+      <h3 class="serif">When the Mediterranean dried up, the salt giant under the sea</h3>
+      <span class="loc">Ground Truth</span>
+    </a>
+    <a class="fcard f2" href="folio-capo-batroun.html" data-reveal>
+      <div class="fimg"><img src="images/capo-batroun/hero.jpg" alt="Capo, Batroun, Lebanon" loading="lazy" decoding="async"></div>
+      <div class="fk">Folio</div>
+      <h3 class="serif">Capo</h3>
+      <span class="loc">Batroun, Lebanon</span>
+    </a>
+    <a class="fcard f3" href="hotel-san-canzian.html" data-reveal>
+      <div class="fimg"><img src="images/san-canzian/hero.jpg" alt="A stone villa and pool among olive trees in the hills of Istria at San Canzian" loading="lazy" decoding="async"></div>
+      <div class="fk">Stay</div>
+      <h3 class="serif">San Canzian</h3>
+      <span class="loc">Istria, Croatia</span>
+    </a>
+    <a class="fcard f4" href="restaurant-aponiente.html" data-reveal>
+      <div class="fimg"><img src="images/restaurants/aponiente.jpg" alt="Aponiente, El Puerto de Santa María" loading="lazy" decoding="async"></div>
+      <div class="fk">Restaurant</div>
+      <h3 class="serif">Aponiente</h3>
+      <span class="loc">El Puerto de Santa María</span>
+    </a>
+    <a class="fcard f5" href="bearings-ravello-festival-2026-music-above-the-amalfi-sea.html" data-reveal>
+      <div class="fimg"><img src="images/journal/ravello-festival-2026-music-above-the-amalfi-sea.jpg" alt="The Ravello Festival 2026, music above the Amalfi sea" loading="lazy" decoding="async"></div>
+      <div class="fk">Bearings</div>
+      <h3 class="serif">The Ravello Festival 2026, music above the Amalfi sea</h3>
+      <span class="loc">The Edit</span>
+    </a>
+    <a class="fcard f6" href="folio-dar-said.html" data-reveal>
+      <div class="fimg"><img src="images/dar-said/hero.jpg" alt="The rooftop terrace at Dar Saïd above the whitewashed roofs of Sidi Bou Saïd" loading="lazy" decoding="async"></div>
+      <div class="fk">Folio</div>
+      <h3 class="serif">Dar Saïd</h3>
+      <span class="loc">Sidi Bou Saïd, Tunisia</span>
+    </a>
+    </div>
+  </div>
+</section>
+
+<a class="vane-band" href="hotel-amanzoe.html" aria-label="Amanzoe" style="background-image:url('images/amanzoe/hero.jpg')">
+  <div class="vane-band__overlay"></div>
+  <div class="vane-band__content">
+    <h2 class="vane-band__title">Amanzoe</h2>
+    <p class="vane-band__motto">A temple over the gulf</p>
+    <span class="vane-band__more">Read more &rarr;</span>
+  </div>
+</a>
+<a class="vane-band" href="hotel-w-costa-navarino.html" aria-label="W Costa Navarino" style="background-image:url('images/w-costa-navarino/hero.jpg')">
+  <div class="vane-band__overlay"></div>
+  <div class="vane-band__content">
+    <h2 class="vane-band__title">W Costa Navarino</h2>
+    <p class="vane-band__motto">Messinia, end to end</p>
+    <span class="vane-band__more">Read more &rarr;</span>
+  </div>
+</a>
+<a class="vane-band" href="hotel-argos-in-cappadocia.html" aria-label="Argos in Cappadocia" style="background-image:url('images/argos-in-cappadocia/hero.jpg')">
+  <div class="vane-band__overlay"></div>
+  <div class="vane-band__content">
+    <h2 class="vane-band__title">Argos in Cappadocia</h2>
+    <p class="vane-band__motto">Cut from the rock</p>
+    <span class="vane-band__more">Read more &rarr;</span>
+  </div>
+</a>
+
+<div class="filterbar">
+  <div class="wrap filter-in">
+    <a class="active" data-filter="all">All</a>
+    <a data-filter="islands">Islands</a>
+    <a data-filter="mainland">Mainland</a>
+    <span class="fbreak"></span>
+    <a data-filter="table">For the table</a>
+    <a data-filter="design">For design</a>
+    <a data-filter="quiet">For quiet</a>
+    <a data-filter="place">For the place</a>
+  </div>
+</div>
+
+<section class="collection" id="collection">
+  <div class="wrap">
+    <div class="col-head">
+      <h2 class="serif">The Collection</h2>
+      <span class="label" id="count">95 selections</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+  <div class="grid collapsed" id="cgrid">
+    <a class="item" href="hotel-san-canzian.html" data-region="mainland" data-tags="place table quiet">
+      <div class="img"><img src="images/san-canzian/hero.jpg" alt="San Canzian, Istria" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">San Canzian</h3><span class="loc">Istria, Croatia</span></div>
+      <p>A medieval Istrian hamlet rebuilt as a quiet design hotel, with olive groves, vineyards and a kitchen that cooks the region's terroir.</p>
+    </a>
+    <a class="item" href="hotel-dar-said.html" data-region="mainland" data-tags="place design quiet">
+      <div class="img"><img src="images/dar-said/g1.jpg" alt="Dar Saïd, Sidi Bou Saïd" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Dar Saïd</h3><span class="loc">Sidi Bou Saïd, Tunisia</span></div>
+      <p>A nineteenth-century courtyard house in the blue-and-white village above the Gulf of Tunis, and one of Tunisia's first boutique hotels.</p>
+    </a>
+    <a class="item" href="hotel-crillon-le-brave.html" data-region="mainland" data-tags="place quiet table">
+      <div class="img"><img src="images/crillon-le-brave/hero.jpg" alt="Crillon le Brave, Provence" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Crillon le Brave</h3><span class="loc">Crillon le Brave, Provence</span></div>
+      <p>A five-star hotel that is really a whole Provençal village, a dozen old stone houses on a hill facing Mont Ventoux.</p>
+    </a>
+    <a class="item" href="hotel-palazzo-daniele.html" data-region="mainland" data-tags="design place quiet">
+      <div class="img"><img src="images/palazzo-daniele/hero.jpg" alt="Palazzo Daniele, Gagliano del Capo" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Palazzo Daniele</h3><span class="loc">Gagliano del Capo, Salento</span></div>
+      <p>An 1861 palazzo in the deep Salento, stripped back to its frescoes and hung with contemporary art.</p>
+    </a>
+    <a class="item" href="hotel-map-boutique-hotel.html" data-region="mainland" data-tags="design table place">
+      <div class="img"><img src="images/map-boutique-hotel/hero.jpg" alt="MAP Boutique Hotel, Nicosia" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">MAP Boutique Hotel</h3><span class="loc">Nicosia, Cyprus</span></div>
+      <p>A black, sharply cut design hotel a few steps from the Venetian walls, in Europe's last divided capital.</p>
+    </a>
+    <a class="item" href="hotel-torralbenc.html" data-region="islands" data-tags="quiet place">
+      <div class="img"><img src="images/torralbenc/hero.jpg" alt="Torralbenc, Menorca" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">Torralbenc</h3><span class="loc">Menorca</span></div>
+      <p>A nineteenth-century Menorcan farm turned into a low, quiet country hotel among its own vines above the south coast.</p>
+    </a>
+    <a class="item" href="hotel-palazzo-avino.html" data-region="mainland" data-tags="place table quiet">
+      <div class="img"><img src="images/palazzo-avino/hero.jpg" alt="Palazzo Avino, Amalfi Coast" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Palazzo Avino</h3><span class="loc">Amalfi Coast</span></div>
+      <p>The pink twelfth-century palace of Ravello, family-run above the Amalfi Coast, with a one-star kitchen and a beach club far below.</p>
+    </a>
+    <a class="item" href="hotel-kalesma-mykonos.html" data-region="islands" data-tags="place design quiet">
+      <div class="img"><img src="images/kalesma-mykonos/hero.jpg" alt="Kalesma Mykonos, Cyclades" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Kalesma Mykonos</h3><span class="loc">Cyclades</span></div>
+      <p>A ridge of whitewashed Cycladic volumes above Ornos, 25 suites and 2 villas around a village square, each with its own pool over the Aegean.</p>
+    </a>
+    <a class="item" href="hotel-borgo-santandrea.html" data-region="mainland" data-tags="design place table">
+      <div class="img"><img src="images/borgo-santandrea/borgo.jpg" alt="Borgo Santandrea, Amalfi Coast" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Borgo Santandrea</h3><span class="loc">Amalfi Coast</span></div>
+      <p>A cliffside hotel above Conca dei Marini, remade from a 1960s building in hand-painted Vietri tile and mid-century design, with lifts down through the rock to a private beach.</p>
+    </a>
+    <a class="item" href="hotel-espera-suites.html" data-region="islands" data-tags="table quiet design">
+      <div class="img"><img src="images/espera-suites/g3.jpg" alt="Espera Suites, Kimolos" loading="lazy"><span class="tag">For the table</span></div>
+      <div class="meta"><h3 class="serif">Espera Suites</h3><span class="loc">Kimolos</span></div>
+      <p>A low white five-star above the channel to Milos, all sea-view suites and slow days, with amoni, a serious kitchen, on the terrace.</p>
+    </a>
+    <a class="item" href="hotel-beresheet.html" data-region="mainland" data-tags="place quiet design">
+      <div class="img"><img src="images/beresheet/g1.jpg" alt="Beresheet, Mitzpe Ramon" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Beresheet</h3><span class="loc">Mitzpe Ramon</span></div>
+      <p>A stone village on the rim of the Ramon Crater, its infinity pool and terraces turned toward the silence of the Negev.</p>
+    </a>
+    <a class="item" href="hotel-hacienda-na-xamena.html" data-region="islands" data-tags="place quiet">
+      <div class="img"><img src="images/hacienda-na-xamena/g6.jpg" alt="Hacienda Na Xamena, Ibiza" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Hacienda Na Xamena</h3><span class="loc">San Miguel, Ibiza</span></div>
+      <p>A whitewashed finca on north Ibiza's cliffs, known for the seawater pools that fall down the rock to the sea.</p>
+    </a>
+    <a class="item" href="hotel-villa-belle-epoque.html" data-region="mainland" data-tags="place quiet design">
+      <div class="img"><img src="images/villa-belle-epoque/hero.jpg" alt="Villa Belle Époque, Maadi, Cairo" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Villa Belle Époque</h3><span class="loc">Maadi, Cairo</span></div>
+      <p>A 1920s Maadi villa of antiques and Egyptian art, with a walled garden and pool at the centre of it.</p>
+    </a>
+    <a class="item" href="hotel-albergo.html" data-region="mainland" data-tags="design place table">
+      <div class="img"><img src="images/hotel-albergo/hero.jpg" alt="Hotel Albergo, Beirut" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Hotel Albergo</h3><span class="loc">Achrafieh, Beirut</span></div>
+      <p>A 1930s Beirut mansion run as 33 suites, no two alike, with a pool laid into the roof and the country's only Relais &amp; Châteaux table on the ninth floor.</p>
+    </a>
+    <a class="item" href="hotel-castello-di-reschio.html" data-region="mainland" data-tags="design quiet">
+      <div class="img"><img src="images/castello-di-reschio/hero.jpg" alt="Castello di Reschio, Umbria" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Castello di Reschio</h3><span class="loc">Umbria, Italy</span></div>
+      <p>A thousand-year-old castle on a private Umbrian estate, restored over decades by one family and run down to the furniture they made on site.</p>
+    </a>
+    <a class="item" href="hotel-green-coast-hotel.html" data-region="mainland" data-tags="design place">
+      <div class="img"><img src="images/green-coast-hotel/hero.jpg" alt="Green Coast Hotel, Palasë" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Green Coast Hotel</h3><span class="loc">Palasë, Albania</span></div>
+      <p>Albania's first hotel of real design ambition, set into the Ionian hillside so it reads as quarried from the rock.</p>
+    </a>
+    <a class="item" href="hotel-vander-urbani-resort.html" data-region="mainland" data-tags="design table place">
+      <div class="img"><img src="images/vander-urbani-resort/hero.jpg" alt="Vander Urbani Resort, Ljubljana" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Vander Urbani Resort</h3><span class="loc">Ljubljana, Slovenia</span></div>
+      <p>Four old-town houses on the Ljubljanica, knitted into one design hotel under the castle hill.</p>
+    </a>
+    <a class="item" href="hotel-anassa.html" data-region="mainland" data-tags="place table quiet">
+      <div class="img"><img src="images/anassa/hero.jpg" alt="Anassa, Akamas Peninsula" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Anassa</h3><span class="loc">Akamas Peninsula, Cyprus</span></div>
+      <p>A whitewashed village above a quiet bay on the last wild headland of Cyprus, with a serious kitchen and a thalasso spa.</p>
+    </a>
+    <a class="item" href="hotel-areias-do-seixo.html" data-region="mainland" data-tags="design quiet table">
+      <div class="img"><img src="images/areias-do-seixo/hero.jpg" alt="Areias do Seixo, Santa Cruz" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Areias do Seixo</h3><span class="loc">Santa Cruz, Portugal</span></div>
+      <p>A self-sufficient design hotel in the pines and dunes north of Lisbon, growing much of what it serves.</p>
+    </a>
+    <a class="item" href="hotel-la-maison-bleue.html" data-region="mainland" data-tags="design quiet place">
+      <div class="img"><img src="images/la-maison-bleue/hero.jpg" alt="La Maison Bleue, El Gouna" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">La Maison Bleue</h3><span class="loc">El Gouna, Egypt</span></div>
+      <p>A blue villa on a Red Sea lagoon, built as one collector's imagined Levantine mansion.</p>
+    </a>
+    <a class="item" href="hotel-dar-hi.html" data-region="mainland" data-tags="design quiet place">
+      <div class="img"><img src="images/dar-hi/hero.jpg" alt="Dar Hi, Nefta" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Dar Hi</h3><span class="loc">Nefta, Tunisia</span></div>
+      <p>A small village of ochre towers by Matali Crasset, high above the Nefta oasis at the edge of the Sahara.</p>
+    </a>
+    <a class="item" href="hotel-heure-bleue.html" data-region="mainland" data-tags="place table design">
+      <div class="img"><img src="images/heure-bleue/g5.jpg" alt="L'Heure Bleue Palais, Essaouira" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">L'Heure Bleue Palais</h3><span class="loc">Essaouira, Morocco</span></div>
+      <p>A colonial-era palais inside the walls of Essaouira, with a rooftop pool over the whole medina.</p>
+    </a>
+    <a class="item" href="hotel-the-jaffa.html" data-region="mainland" data-tags="design place table">
+      <div class="img"><img src="images/the-jaffa/g1.jpg" alt="The Jaffa, Tel Aviv" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">The Jaffa</h3><span class="loc">Jaffa, Tel Aviv</span></div>
+      <p>A nineteenth-century French hospital in old Jaffa, restored by John Pawson into 120 rooms and suites.</p>
+    </a>
+    <a class="item" href="hotel-rosselli-ax-privilege.html" data-region="islands" data-tags="design table quiet">
+      <div class="img"><img src="images/rosselli-ax-privilege/g1.jpg" alt="Rosselli AX Privilege, Valletta" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Rosselli AX Privilege</h3><span class="loc">Valletta, Malta</span></div>
+      <p>A goldsmith's Baroque palazzo on Merchants Street, reborn as 25 rooms and a Michelin cellar.</p>
+    </a>
+    <a class="item" href="hotel-monaci-delle-terre-nere.html" data-region="mainland" data-tags="table place quiet">
+      <div class="img"><img src="images/monaci-delle-terre-nere/hero.jpg" alt="Monaci delle Terre Nere, Zafferana Etnea" loading="lazy"><span class="tag">For the table</span></div>
+      <div class="meta"><h3 class="serif">Monaci delle Terre Nere</h3><span class="loc">Zafferana Etnea, Sicily</span></div>
+      <p>A biodynamic wine estate on the black soils of Etna, where the kitchen cooks what the land gives it.</p>
+    </a>
+    <a class="item" href="hotel-chedi-lustica-bay.html" data-region="mainland" data-tags="place design quiet">
+      <div class="img"><img src="images/chedi-lustica-bay/hero.jpg" alt="The Chedi Luštica Bay, Luštica Bay" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">The Chedi Luštica Bay</h3><span class="loc">Luštica Bay, Montenegro</span></div>
+      <p>The first hotel of a new marina town on the far side of the Bay of Kotor, and the calmest way onto that coast.</p>
+    </a>
+    <a class="item" href="hotel-lily-of-the-valley.html" data-region="mainland" data-tags="quiet place table">
+      <div class="img"><img src="images/lily-of-the-valley/hero.jpg" alt="Lily of the Valley, La Croix-Valmer" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">Lily of the Valley</h3><span class="loc">La Croix-Valmer, France</span></div>
+      <p>A Philippe Starck wellness resort above Gigaro beach on the Saint-Tropez peninsula, where health is a pleasure rather than a penance.</p>
+    </a>
+    <a class="item" href="hotel-alavya.html" data-region="mainland" data-tags="design place table">
+      <div class="img"><img src="images/alavya/hero.jpg" alt="Alavya, Alaçatı" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Alavya</h3><span class="loc">Alaçatı, Turkey</span></div>
+      <p>Six restored stone houses around a walled garden in the heart of Alaçatı, hung with the owners' art and run at the scale of a home.</p>
+    </a>
+    <a class="item" href="hotel-meneghetti.html" data-region="mainland" data-tags="table place quiet">
+      <div class="img"><img src="images/meneghetti/hero.jpg" alt="Meneghetti, Bale" loading="lazy"><span class="tag">For the table</span></div>
+      <div class="meta"><h3 class="serif">Meneghetti</h3><span class="loc">Bale, Istria</span></div>
+      <p>A restored Austro-Hungarian farmstead in inland Istria, where the wine, the oil and much of the plate come off the estate's own land.</p>
+    </a>
+    <a class="item" href="hotel-the-phoenicia-malta.html" data-region="mainland" data-tags="place table quiet">
+      <div class="img"><img src="images/the-phoenicia-malta/hero.jpg" alt="The Phoenicia Malta, Floriana" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">The Phoenicia Malta</h3><span class="loc">Floriana, Malta</span></div>
+      <p>Malta's 1947 grande dame at the gate of Valletta, with seven acres of garden falling to a pool set against the old bastion wall.</p>
+    </a>
+    <a class="item" href="hotel-dar-ben-gacem.html" data-region="mainland" data-tags="place design quiet">
+      <div class="img"><img src="images/dar-ben-gacem/hero.jpg" alt="Dar Ben Gacem, Tunis" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Dar Ben Gacem</h3><span class="loc">Medina of Tunis</span></div>
+      <p>Two restored townhouses in the old city of Tunis, run as a social enterprise, with fifteen tiled rooms and a roof over the medina.</p>
+    </a>
+    <a class="item" href="hotel-bkerzay.html" data-region="mainland" data-tags="place quiet design">
+      <div class="img"><img src="images/bkerzay/g1.jpg" alt="Bkerzay, Chouf" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Bkerzay</h3><span class="loc">Chouf, Lebanon</span></div>
+      <p>A village of stone guest houses built into the Chouf forest, with a pottery kiln, a hammam and pools above the valley.</p>
+    </a>
+    <a class="item" href="hotel-mas-de-torrent.html" data-region="mainland" data-tags="quiet place table">
+      <div class="img"><img src="images/mas-de-torrent/hero.jpg" alt="Mas de Torrent, Empordà" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">Mas de Torrent</h3><span class="loc">Torrent, Costa Brava</span></div>
+      <p>An 18th-century Catalan farmhouse in the Empordà, kept quiet and given over to the garden.</p>
+    </a>
+    <a class="item" href="hotel-beit-al-batroun.html" data-region="mainland" data-tags="place quiet table">
+      <div class="img"><img src="images/beit-al-batroun/g1.jpg" alt="Beit al Batroun, Thoum" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Beit al Batroun</h3><span class="loc">Thoum, Lebanon</span></div>
+      <p>A five-room house above the sea near Batroun, built over a decade from salvaged Lebanese doors, shutters and tiles.</p>
+    </a>
+    <a class="item" href="hotel-torre-de-palma.html" data-region="mainland" data-tags="table quiet place">
+      <div class="img"><img src="images/torre-de-palma/g1.jpg" alt="Torre de Palma Wine Hotel, Monforte" loading="lazy"><span class="tag">For the table</span></div>
+      <div class="meta"><h3 class="serif">Torre de Palma Wine Hotel</h3><span class="loc">Monforte, Alentejo</span></div>
+      <p>A farming estate in the empty upper Alentejo, rebuilt around its own winery and the Roman villa next door.</p>
+    </a>
+    <a class="item" href="hotel-hacienda-de-san-rafael.html" data-region="mainland" data-tags="quiet place">
+      <div class="img"><img src="images/hacienda-de-san-rafael/hero.jpg" alt="Hacienda de San Rafael, Andalusia" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">Hacienda de San Rafael</h3><span class="loc">Andalusia, Spain</span></div>
+      <p>A derelict olive estate between Seville and Jerez, brought back over ten years into a small white hacienda where the deep countryside sets the pace.</p>
+    </a>
+    <a class="item" href="hotel-efendi.html" data-region="mainland" data-tags="place design quiet">
+      <div class="img"><img src="images/efendi/hero.jpg" alt="Efendi Hotel, Acre" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Efendi Hotel</h3><span class="loc">Acre, Israel</span></div>
+      <p>Two Ottoman merchant palaces inside the walls of old Acre, restored stone by stone, with painted ceilings above the beds and a Crusader cellar below for the wine.</p>
+    </a>
+    <a class="item" href="hotel-capo-batroun.html" data-region="mainland" data-tags="design place table">
+      <div class="img"><img src="images/capo-batroun/hero.jpg" alt="Capo, Batroun" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Capo</h3><span class="loc">Batroun, Lebanon</span></div>
+      <p>An architect's resort cast from beach sand, stepped down five levels to the sea at Batroun, on one of the oldest ports in the Mediterranean.</p>
+    </a>
+    <a class="item" href="hotel-lopud-1483.html" data-region="islands" data-tags="design place quiet">
+      <div class="img"><img src="images/lopud-1483/hero.jpg" alt="Lopud 1483, Lopud" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Lopud 1483</h3><span class="loc">Lopud, Croatia</span></div>
+      <p>A fortified 1483 monastery on a car-free Adriatic island off Dubrovnik, restored into a private retreat of five art-filled suites.</p>
+    </a>
+    <a class="item" href="hotel-kasbah-bab-ourika.html" data-region="mainland" data-tags="place quiet design">
+      <div class="img"><img src="images/kasbah-bab-ourika/g1.jpg" alt="Kasbah Bab Ourika, Ourika Valley" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Kasbah Bab Ourika</h3><span class="loc">Ourika Valley, Morocco</span></div>
+      <p>A rammed-earth kasbah alone on a red hilltop above the Ourika Valley, the High Atlas filling every window, 45 minutes from Marrakech.</p>
+    </a>
+    <a class="item" href="hotel-hisa-franko.html" data-region="mainland" data-tags="table place quiet">
+      <div class="img"><img src="images/hisa-franko/g1.jpg" alt="Hiša Franko, Kobarid" loading="lazy"><span class="tag">For the table</span></div>
+      <div class="meta"><h3 class="serif">Hiša Franko</h3><span class="loc">Kobarid, Slovenia</span></div>
+      <p>Ana Roš cooks the Soča valley here, and the ten rooms above the dining room exist so you need not drive home after her three-star menu.</p>
+    </a>
+    <a class="item" href="hotel-dar-el-jeld.html" data-region="mainland" data-tags="place design table">
+      <div class="img"><img src="images/dar-el-jeld/hero.jpg" alt="Dar El Jeld Hotel &amp; Spa, Tunis" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Dar El Jeld Hotel &amp; Spa</h3><span class="loc">Tunis, Tunisia</span></div>
+      <p>A restored eighteenth-century palace hidden in the medina of Tunis, sixteen suites around a courtyard of lemon trees, with one of the city's most storied Tunisian tables in the house across the lane.</p>
+    </a>
+    <a class="item" href="hotel-al-moudira.html" data-region="mainland" data-tags="place design quiet">
+      <div class="img"><img src="images/al-moudira/hero.jpg" alt="Al Moudira, Luxor" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Al Moudira</h3><span class="loc">Luxor, Egypt</span></div>
+      <p>A country-house hotel on Luxor's quiet west bank, a honeycomb of frescoed courtyards and domed rooms built from salvaged old Egypt, with the Valley of the Kings on the doorstep.</p>
+    </a>
+    <a class="item" href="hotel-empire-beach-resort.html" data-region="mainland" data-tags="place table quiet">
+      <div class="img"><img src="images/empire-beach-resort/hero.jpg" alt="Empire Beach Resort, Dhërmi" loading="lazy"><span class="tag">For the coast</span></div>
+      <div class="meta"><h3 class="serif">Empire Beach Resort</h3><span class="loc">Dhërmi, Albania</span></div>
+      <p>The most composed base in Dhërmi on the rising Albanian Riviera: an adults-only four-star on its own beach, pools stepped to the Ionian and a seafood kitchen, Sanur, that cooks the catch in front of you.</p>
+    </a>
+    <a class="item" href="hotel-elma-arts-complex.html" data-region="mainland" data-tags="design quiet">
+      <div class="img"><img src="images/elma-arts-complex/hero.jpg" alt="Elma Arts Complex, Zichron Ya'akov" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Elma Arts Complex</h3><span class="loc">Zichron Ya'akov</span></div>
+      <p>A saved Brutalist landmark on the Carmel ridge, run as a working arts complex with two concert halls and a museum's worth of art.</p>
+    </a>
+    <a class="item" href="hotel-le-grotte-della-civita.html" data-region="mainland" data-tags="place quiet design">
+      <div class="img"><img src="images/le-grotte-della-civita/g2.jpg" alt="Sextantio Le Grotte della Civita, Matera" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Sextantio Le Grotte della Civita</h3><span class="loc">Matera</span></div>
+      <p>Eighteen rooms cut into the oldest cave dwellings of Matera, on the lip of the Gravina ravine, kept close to how a thousand years left them.</p>
+    </a>
+    <a class="item" href="hotel-palazzo-radomiri.html" data-region="mainland" data-tags="quiet place">
+      <div class="img"><img src="images/palazzo-radomiri/hero.jpg" alt="Palazzo Radomiri, Dobrota" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">Palazzo Radomiri</h3><span class="loc">Bay of Kotor</span></div>
+      <p>A restored sea captain's house on the Dobrota waterfront, ten rooms named after boats, kept apart from the crowds that fill the walled town up the shore.</p>
+    </a>
+    <a class="item" href="hotel-apokryfo.html" data-region="mainland" data-tags="quiet place design">
+      <div class="img"><img src="images/apokryfo/hero.jpg" alt="Apokryfo, Lofou" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">Apokryfo</h3><span class="loc">Lofou</span></div>
+      <p>A cluster of derelict stone houses at the top of a Troodos village, rebuilt one by one until the village had a reason to stay alive.</p>
+    </a>
+    <a class="item" href="hotel-vila-planinka.html" data-region="mainland" data-tags="quiet table design">
+      <div class="img"><img src="images/vila-planinka/hero.jpg" alt="Vila Planinka, Jezersko" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">Vila Planinka</h3><span class="loc">Jezersko, Slovenia</span></div>
+      <p>A tech-free alpine house at the head of a Slovenian valley, built for people who came to switch off.</p>
+    </a>
+    <a class="item" href="hotel-adrere-amellal.html" data-region="mainland" data-tags="quiet place design">
+      <div class="img"><img src="images/adrere-amellal/hero.jpg" alt="Adrère Amellal, Siwa Oasis" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">Adrère Amellal</h3><span class="loc">Siwa Oasis, Egypt</span></div>
+      <p>A fortress of salt-rock and candlelight below the White Mountain, off-grid on the shore of a Siwan salt lake.</p>
+    </a>
+    <a class="item" href="hotel-son-brull.html" data-region="islands" data-tags="quiet table">
+      <div class="img"><img src="images/son-brull/g1.jpg" alt="Son Brull, Pollença" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">Son Brull</h3><span class="loc">Pollença</span></div>
+      <p>An 18th-century Jesuit farm in the Tramuntana foothills, cooking what its own land sends in.</p>
+    </a>
+    <a class="item" href="hotel-lazure-hotel-marina.html" data-region="mainland" data-tags="place table quiet">
+      <div class="img"><img src="images/lazure-hotel-marina/g1.jpg" alt="Lazure Hotel & Marina, Herceg Novi" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Lazure Hotel &amp; Marina</h3><span class="loc">Herceg Novi, Montenegro</span></div>
+      <p>A 1730s Venetian quarantine station on the Bay of Kotor, restored into a five-star hotel wrapped around its own marina.</p>
+    </a>
+    <a class="item" href="hotel-sublime-comporta.html" data-region="mainland" data-tags="place table quiet">
+      <div class="img"><img src="images/sublime-comporta/hero.jpg" alt="Sublime Comporta, Comporta" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Sublime Comporta</h3><span class="loc">Comporta, Alentejo</span></div>
+      <p>A design resort scattered through sixty-eight hectares of umbrella pine near Comporta, an hour south of Lisbon, with the Atlantic beaches a short drive away.</p>
+    </a>
+    <a class="item" href="hotel-the-romanos.html" data-region="mainland" data-tags="place table design">
+      <div class="img"><img src="images/the-romanos/card.jpg" alt="The Romanos, Costa Navarino" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">The Romanos</h3><span class="loc">Navarino Dunes, Messinia</span></div>
+      <p>The grand hotel of Costa Navarino, 321 rooms and villas in the Navarino Dunes, with Anazoe Spa, four golf courses and the whole of Messinia at the door.</p>
+    </a>
+    <a class="item" href="hotel-casa-dell-arte.html" data-region="mainland" data-tags="design table place">
+      <div class="img"><img src="images/casa-dell-arte/g2.jpg" alt="Casa dell'Arte, Torba" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Casa dell'Arte</h3><span class="loc">Torba, Bodrum</span></div>
+      <p>A family's contemporary Turkish art collection hung through twelve suites above the Aegean, on the quiet side of Bodrum.</p>
+    </a>
+    <a class="item" href="hotel-lesic-dimitri-palace.html" data-region="islands" data-tags="place table design">
+      <div class="img"><img src="images/lesic-dimitri-palace/g1.jpg" alt="Lešić Dimitri Palace, Korčula" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Lešić Dimitri Palace</h3><span class="loc">Korčula</span></div>
+      <p>Six suites and a Michelin-starred kitchen inside a former bishop's palace, in the walled old town where Korčula claims Marco Polo as its own.</p>
+    </a>
+    <a class="item" href="hotel-xara-palace.html" data-region="islands" data-tags="place quiet table">
+      <div class="img"><img src="images/xara-palace/g1.jpg" alt="The Xara Palace, Mdina" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">The Xara Palace</h3><span class="loc">Mdina</span></div>
+      <p>The only hotel inside the walls of Mdina, where the Silent City empties at dusk and the old capital is more or less yours.</p>
+    </a>
+    <a class="item" href="hotel-the-norman-tel-aviv.html" data-region="mainland" data-tags="design table place">
+      <div class="img"><img src="images/the-norman-tel-aviv/hero.jpg" alt="The Norman, Tel Aviv" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">The Norman</h3><span class="loc">Tel Aviv</span></div>
+      <p>Two 1920s houses on King Albert Square, restored into a small hotel that holds Tel Aviv's early history and a serious kitchen.</p>
+    </a>
+    <a class="item" href="hotel-la-reserve-ramatuelle.html" data-region="mainland" data-tags="quiet table design">
+      <div class="img"><img src="images/la-reserve-ramatuelle/hero.jpg" alt="La Réserve Ramatuelle, Ramatuelle" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">La Réserve Ramatuelle</h3><span class="loc">Ramatuelle</span></div>
+      <p>A low, light-filled Wilmotte villa in the hills above Ramatuelle, built around quiet and a two-star kitchen.</p>
+    </a>
+    <a class="item" href="hotel-su-gologone.html" data-region="islands" data-tags="place design table">
+      <div class="img"><img src="images/su-gologone/hero.jpg" alt="Su Gologone Experience Hotel, Oliena" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Su Gologone Experience Hotel</h3><span class="loc">Oliena</span></div>
+      <p>A white village at the foot of the Supramonte where Sardinian art and craft are the whole point, not the decoration.</p>
+    </a>
+    <a class="item" href="hotel-aman-sveti-stefan.html" data-region="islands" data-tags="place design quiet">
+      <div class="img"><img src="images/aman-sveti-stefan/hero.jpg" alt="Aman Sveti Stefan, Sveti Stefan" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Aman Sveti Stefan</h3><span class="loc">Sveti Stefan</span></div>
+      <p>A medieval island village on the Adriatic, its stone cottages restored as an Aman and reached by a causeway from the Montenegrin shore.</p>
+    </a>
+    <a class="item" href="hotel-menorca-experimental.html" data-region="islands" data-tags="design table quiet">
+      <div class="img"><img src="images/menorca-experimental/hero.jpg" alt="Menorca Experimental, Menorca" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Menorca Experimental</h3><span class="loc">Menorca</span></div>
+      <p>A 19th-century finca in the island's green interior, reworked by the Experimental Group, light on polish and long on ease.</p>
+    </a>
+    <a class="item" href="hotel-el-fenn.html" data-region="mainland" data-tags="design place table">
+      <div class="img"><img src="images/el-fenn/g5.jpg" alt="El Fenn, Marrakech" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">El Fenn</h3><span class="loc">Marrakech</span></div>
+      <p>An independent, art-filled riad in the medina, colour on every wall and a rooftop over the Koutoubia.</p>
+    </a>
+    <a class="item" href="hotel-vermelho.html" data-region="mainland" data-tags="design place table">
+      <div class="img"><img src="images/vermelho/hero.jpg" alt="Vermelho, Melides" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Vermelho</h3><span class="loc">Melides</span></div>
+      <p>Christian Louboutin's first hotel: thirteen hand-made rooms on a village square in the Alentejo.</p>
+    </a>
+    <a class="item" href="hotel-mythic-villa.html" data-region="islands" data-tags="quiet place design">
+      <div class="img"><img src="images/mythic-villa/card.jpg" alt="Mythic Villa, Sifnos" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">Mythic Villa</h3><span class="loc">Sifnos</span></div>
+      <p>A private six-bedroom estate in the olive terraces above Exambela, two infinity pools and the quiet, cultivated side of Sifnos at the gate.</p>
+    </a>
+    <a class="item" href="hotel-maslina-resort.html" data-region="islands" data-tags="quiet place design">
+      <div class="img"><img src="images/maslina-resort/hero.jpg" alt="Maslina Resort, Stari Grad, Hvar" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">Maslina Resort</h3><span class="loc">Stari Grad, Hvar</span></div>
+      <p>Low timber pavilions in a pine forest above a quiet Hvar bay, on the doorstep of the Greek-founded town of Pharos.</p>
+    </a>
+    <a class="item" href="hotel-macakizi.html" data-region="mainland" data-tags="table place design">
+      <div class="img"><img src="images/macakizi/hero.jpg" alt="Maçakızı, Göltürkbükü" loading="lazy"><span class="tag">For the table</span></div>
+      <div class="meta"><h3 class="serif">Maçakızı</h3><span class="loc">Göltürkbükü</span></div>
+      <p>A family beach club on the Bodrum peninsula that happens to have rooms, where wooden decks step into the Aegean and a Michelin-starred kitchen runs the table.</p>
+    </a>
+    <a class="item" href="hotel-la-donaira.html" data-region="mainland" data-tags="quiet place table">
+      <div class="img"><img src="images/la-donaira/g4.jpg" alt="La Donaira, Serranía de Ronda" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">La Donaira</h3><span class="loc">Serranía de Ronda</span></div>
+      <p>An off-grid estate in the hills above Ronda, run as a working farm, where the kitchen is seed to plate and Lusitano horses graze loose across the land.</p>
+    </a>
+    <a class="item" href="hotel-capofaro.html" data-region="islands" data-tags="place table quiet">
+      <div class="img"><img src="images/capofaro/hero.jpg" alt="Capofaro, Salina" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Capofaro</h3><span class="loc">Salina</span></div>
+      <p>A working Malvasia vineyard around a lighthouse on Salina, the greenest of the Aeolian islands, with Stromboli on the horizon.</p>
+    </a>
+    <a class="item" href="hotel-la-mirande.html" data-region="mainland" data-tags="table design place">
+      <div class="img"><img src="images/la-mirande/hero.jpg" alt="La Mirande, Avignon" loading="lazy"><span class="tag">For the table</span></div>
+      <div class="meta"><h3 class="serif">La Mirande</h3><span class="loc">Avignon</span></div>
+      <p>A cardinal's palace below the Palais des Papes, kept as a private house, with a Michelin table and a candlelit kitchen.</p>
+    </a>
+    <a class="item" href="hotel-villa-la-coste.html" data-region="mainland" data-tags="design table place">
+      <div class="img"><img src="images/villa-la-coste/card.jpg" alt="Villa La Coste, Provence" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Villa La Coste</h3><span class="loc">Le Puy-Sainte-Réparade</span></div>
+      <p>A biodynamic vineyard and sculpture park in Provence, with thirty-one suites added so you can stay among the art.</p>
+    </a>
+    <a class="item" href="hotel-la-colombe-dor.html" data-region="mainland" data-tags="table design place">
+      <div class="img"><img src="images/la-colombe-dor/card.jpg" alt="La Colombe d'Or, Saint-Paul-de-Vence" loading="lazy"><span class="tag">For the table</span></div>
+      <div class="meta"><h3 class="serif">La Colombe d'Or</h3><span class="loc">Saint-Paul-de-Vence</span></div>
+      <p>A 1920s village inn on the Riviera, hung with Picasso and Léger, with a legendary Provençal terrace.</p>
+    </a>
+    <a class="item" href="hotel-masseria-moroseta.html" data-region="mainland" data-tags="design table quiet">
+      <div class="img"><img src="images/masseria-moroseta/g1.jpg" alt="Masseria Moroseta, Ostuni" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Masseria Moroseta</h3><span class="loc">Ostuni</span></div>
+      <p>A six-room masseria above Ostuni, new-built in old Puglian stone, with a no-menu kitchen worth the drive.</p>
+    </a>
+    <a class="item" href="hotel-iniala-valletta.html" data-region="islands" data-tags="design table place">
+      <div class="img"><img src="images/iniala-valletta/g2.jpg" alt="Iniala Valletta, Valletta" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Iniala Valletta</h3><span class="loc">Valletta</span></div>
+      <p>Four 17th-century townhouses on Valletta's Grand Harbour, restored by three studios into twenty-three rooms above a two-Michelin-star kitchen.</p>
+    </a>
+    <a class="item" href="hotel-dar-ahlam.html" data-region="mainland" data-tags="quiet place table">
+      <div class="img"><img src="images/dar-ahlam/hero.jpg" alt="Dar Ahlam, Skoura" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">Dar Ahlam</h3><span class="loc">Skoura</span></div>
+      <p>A restored kasbah in the Skoura palm grove that refuses to behave like a hotel, with no menu and a different setting laid for every meal.</p>
+    </a>
+    <a class="item" href="hotel-ammothines-cycladic-suites.html" data-region="islands" data-tags="place design quiet">
+      <div class="img"><img src="images/ammothines-cycladic-suites/hero.jpg" alt="Ammothines Cycladic Suites, Plaka Beach, Naxos" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Ammothines Cycladic Suites</h3><span class="loc">Plaka Beach, Naxos</span></div>
+      <p>A small house of white-marble suites set behind the dunes on Plaka beach, where south-west Naxos meets the sea.</p>
+    </a>
+    <a class="item" href="hotel-casale-panayiotis.html" data-region="mainland" data-tags="place quiet table">
+      <div class="img"><img src="images/casale-panayiotis/courtyard.jpg" alt="The courtyard at Casale Panayiotis, blue armchairs among the stone houses and vines, Kalopanayiotis" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Casale Panayiotis</h3><span class="loc">Kalopanayiotis</span></div>
+      <p>A whole Troodos mountain village restored into a hotel, with a Byzantine monastery across the river and a spa fed by springs used since antiquity.</p>
+    </a>
+    <a class="item" href="hotel-casa-massina.html" data-region="mainland" data-tags="quiet place design">
+      <div class="img"><img src="images/casa-massina/hero.jpg" alt="Casa Massina, Ano Poroia" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">Casa Massina</h3><span class="loc">Ano Poroia</span></div>
+      <p>A single light-filled apartment in a Serres mountain village above Lake Kerkini, minutes from the pelicans and the water buffalo.</p>
+    </a>
+    <a class="item" href="hotel-villa-nai-3-3.html" data-region="islands" data-tags="design quiet table">
+      <div class="img"><img src="images/villa-nai-3-3/hero.jpg" alt="Villa Nai 3.3, Dugi Otok" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Villa Nai 3.3</h3><span class="loc">Dugi Otok</span></div>
+      <p>A working olive estate on a Dalmatian island, with eight rooms carved into the hill beneath a five-hundred-year-old grove.</p>
+    </a>
+    <a class="item" href="hotel-argos-in-cappadocia.html" data-region="mainland" data-tags="place design table">
+      <div class="img"><img src="images/argos-in-cappadocia/hero.jpg" alt="Argos in Cappadocia, Uçhisar" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Argos in Cappadocia</h3><span class="loc">Uçhisar</span></div>
+      <p>A thousand-year-old monastery and cave village above Pigeon Valley, restored over fourteen years with its own vineyard.</p>
+    </a>
+    <a class="item" href="hotel-domaine-de-murtoli.html" data-region="islands" data-tags="place table quiet">
+      <div class="img"><img src="images/domaine-de-murtoli/hero.jpg" alt="The shaded stone terrace of a restored bergerie at Domaine de Murtoli, Corsica" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Domaine de Murtoli</h3><span class="loc">Sartène, Corsica</span></div>
+      <p>A whole wild valley in southern Corsica, its old shepherds' houses restored as private homes around a Michelin-starred farm.</p>
+    </a>
+    <a class="item" href="hotel-sao-lourenco-do-barrocal.html" data-region="mainland" data-tags="place table quiet">
+      <div class="img"><img src="images/sao-lourenco-do-barrocal/hero.jpg" alt="São Lourenço do Barrocal, Monsaraz" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">São Lourenço do Barrocal</h3><span class="loc">Monsaraz</span></div>
+      <p>A farming village one family has held for two centuries, restored as a quiet hotel in the Alentejo.</p>
+    </a>
+    <a class="item" href="hotel-cap-rocat.html" data-region="islands" data-tags="place design quiet">
+      <div class="img"><img src="images/cap-rocat/hero.jpg" alt="Cap Rocat, Mallorca" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Cap Rocat</h3><span class="loc">Cala Blava</span></div>
+      <p>A nineteenth-century fortress on the Bay of Palma, its watchtowers and ramparts turned into rooms.</p>
+    </a>
+    <a class="item" href="hotel-du-lac.html" data-region="mainland" data-tags="place table quiet">
+      <div class="img"><img src="images/hotel-du-lac/hero.jpg" alt="Hotel Du Lac, Ioannina" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Hotel Du Lac</h3><span class="loc">Ioannina</span></div>
+      <p>A grand lakeside hotel on Pamvotida, the old town a walk away and the mountains across the water.</p>
+    </a>
+    <a class="item" href="hotel-monastero-santa-rosa.html" data-region="mainland" data-tags="table quiet place">
+      <div class="img"><img src="images/monastero-santa-rosa/hero.jpg" alt="Monastero Santa Rosa, Amalfi Coast" loading="lazy"><span class="tag">For the table</span></div>
+      <div class="meta"><h3 class="serif">Monastero Santa Rosa</h3><span class="loc">Amalfi Coast</span></div>
+      <p>A 17th-century monastery above the sea, with a one-star table on the terrace.</p>
+    </a>
+    <a class="item" href="hotel-minos-palace.html" data-region="islands" data-tags="place quiet design">
+      <div class="img"><img src="images/minos-palace/hero.jpg" alt="Minos Palace, Crete" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Minos Palace</h3><span class="loc">Crete</span></div>
+      <p>An adults-only peninsula in Mirabello Bay, the sea on almost every side.</p>
+    </a>
+    <a class="item" href="hotel-sigma-residences.html" data-region="islands" data-tags="design quiet place">
+      <div class="img"><img src="images/sigma-residences/hero.jpg" alt="Sigma Residences Sifnos" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Sigma Residences</h3><span class="loc">Sifnos</span></div>
+      <p>Seven private residences above the Sifnos hills, on the Cyclades' great food island.</p>
+    </a>
+    <a class="item" href="hotel-manna.html" data-region="mainland" data-tags="quiet design table">
+      <div class="img"><img src="images/manna/hero.jpg" alt="Manna Arcadia" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">Manna</h3><span class="loc">Arcadia</span></div>
+      <p>A 1920s mountain sanatorium reborn. Design, quiet and a real table in the firs.</p>
+    </a>
+    <a class="item" href="hotel-w-costa-navarino.html" data-region="mainland" data-tags="table design">
+      <div class="img"><img src="images/w-costa-navarino/wcn-pool-sunset.jpg" alt="W Costa Navarino" loading="lazy"><span class="tag">For the table</span></div>
+      <div class="meta"><h3 class="serif">W Costa Navarino</h3><span class="loc">Messinia</span></div>
+      <p>Barefoot, easy and design-led, with Nikos Billis cooking Messinia.</p>
+    </a>
+    <a class="item" href="hotel-amanzoe.html" data-region="mainland" data-tags="quiet">
+      <div class="img"><img src="images/amanzoe/hero.jpg" alt="Amanzoe" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">Amanzoe</h3><span class="loc">Porto Heli</span></div>
+      <p>A modern acropolis above the olive groves, looking down on the Aegean.</p>
+    </a>
+    <a class="item" href="hotel-dexamenes.html" data-region="mainland" data-tags="place">
+      <div class="img"><img src="images/dexamenes/hero.jpg" alt="Dexamenes" loading="lazy"><span class="tag">For the place</span></div>
+      <div class="meta"><h3 class="serif">Dexamenes</h3><span class="loc">Kourouta</span></div>
+      <p>A 1920s seafront winery, its concrete tanks turned into rooms.</p>
+    </a>
+    <a class="item" href="hotel-canaves-oia.html" data-region="islands" data-tags="table">
+      <div class="img"><img src="images/canaves-oia/hero.jpg" alt="Canaves Oia Suites" loading="lazy"><span class="tag">For the table</span></div>
+      <div class="meta"><h3 class="serif">Canaves Oia Suites</h3><span class="loc">Santorini</span></div>
+      <p>Cave suites on the caldera's edge, and a kitchen that stands on its own.</p>
+    </a>
+    <a class="item" href="hotel-four-seasons-astir.html" data-region="mainland" data-tags="table design">
+      <div class="img"><img src="images/four-seasons/fs-aerial.jpg" alt="Four Seasons Astir Palace Athens" loading="lazy"><span class="tag">For the table</span></div>
+      <div class="meta"><h3 class="serif">Four Seasons Astir</h3><span class="loc">Athens Riviera</span></div>
+      <p>A pine peninsula on the Riviera, and a one-star table by the sea.</p>
+    </a>
+    <a class="item" href="hotel-euphoria.html" data-region="mainland" data-tags="quiet place">
+      <div class="img"><img src="images/euphoria/hero.jpg" alt="Euphoria Retreat" loading="lazy"><span class="tag">For quiet</span></div>
+      <div class="meta"><h3 class="serif">Euphoria Retreat</h3><span class="loc">Mystras</span></div>
+      <p>Greece's first destination spa, at the foot of Mount Taygetos.</p>
+    </a>
+    <a class="item" href="hotel-domes-zeen.html" data-region="islands" data-tags="design">
+      <div class="img"><img src="images/domes-zeen/hero.jpg" alt="Domes Zeen Chania" loading="lazy"><span class="tag">For design</span></div>
+      <div class="meta"><h3 class="serif">Domes Zeen</h3><span class="loc">Chania</span></div>
+      <p>A contemporary Cretan village by the water, built around an agora.</p>
+    </a>
+  </div>
+  </div>
+  <div class="wrap"><div class="empty" id="empty">Nothing in this category yet. More selections are on the way.</div></div>
+  <div class="wrap explore" id="explore">
+    <a class="explore-btn" href="#collection" id="exploreAll">Explore the collection &rarr;</a>
+    <a class="label" href="map.html">Or see it on the map</a>
+  </div>
+  <noscript><style>.grid.collapsed .item{display:block!important}.explore{display:none}</style></noscript>
+</section>
+
+<section class="latest wrap" id="latest">
+  <div class="lrow">
+    <div class="col-head">
+      <h2 class="serif">Latest Bearings</h2>
+      <a class="label more-link" href="bearings.html">All of Bearings &rarr;</a>
+    </div>
+    <div class="lgrid">
+    <a class="fcard lcard" href="bearings-the-olivetti-valentine-sottsass-red-typewriter-made-to-travel.html" data-reveal>
+      <div class="fimg"><img src="images/journal/the-olivetti-valentine-sottsass-red-typewriter-made-to-travel.jpg" alt="The Olivetti Valentine, Sottsass's red typewriter" loading="lazy" decoding="async"></div>
+      <div class="fk">Bearings</div>
+      <h3 class="serif">The Olivetti Valentine, Sottsass's red typewriter made to travel</h3>
+      <span class="loc">The Object</span>
+    </a>
+    <a class="fcard lcard" href="bearings-bosa-sardinias-coloured-town-along-a-slow-river.html" data-reveal>
+      <div class="fimg"><img src="images/journal/bosa-sardinias-coloured-town-along-a-slow-river.jpg" alt="Bosa, Sardinia" loading="lazy" decoding="async"></div>
+      <div class="fk">Bearings</div>
+      <h3 class="serif">Bosa, the coloured town on Sardinia's only navigable river</h3>
+      <span class="loc">Field Notes</span>
+    </a>
+    <a class="fcard lcard" href="bearings-the-bergamot-of-reggio-calabria-the-citrus-that-grows-nowhere-else.html" data-reveal>
+      <div class="fimg"><img src="images/journal/the-bergamot-of-reggio-calabria-the-citrus-that-grows-nowhere-else.jpg" alt="Bergamot, Reggio Calabria" loading="lazy" decoding="async"></div>
+      <div class="fk">Bearings</div>
+      <h3 class="serif">The bergamot of Reggio Calabria, the citrus that grows nowhere else</h3>
+      <span class="loc">The Table</span>
+    </a>
+    </div>
+  </div>
+  <div class="lrow">
+    <div class="col-head">
+      <h2 class="serif">Latest Folio</h2>
+      <a class="label more-link" href="folio.html">All of Folio &rarr;</a>
+    </div>
+    <div class="lgrid">
+    <a class="fcard lcard" href="folio-palazzo-avino.html" data-reveal>
+      <div class="fimg"><img src="images/palazzo-avino/hero.jpg" alt="The pink facade of Palazzo Avino above Ravello" loading="lazy" decoding="async"></div>
+      <div class="fk">Folio</div>
+      <h3 class="serif">Palazzo Avino</h3>
+      <span class="loc">Ravello, Amalfi Coast</span>
+    </a>
+    <a class="fcard lcard" href="folio-crillon-le-brave.html" data-reveal>
+      <div class="fimg"><img src="images/crillon-le-brave/hero.jpg" alt="Crillon le Brave, Provence" loading="lazy" decoding="async"></div>
+      <div class="fk">Folio</div>
+      <h3 class="serif">Crillon le Brave</h3>
+      <span class="loc">Provence, France</span>
+    </a>
+    <a class="fcard lcard" href="folio-palazzo-daniele.html" data-reveal>
+      <div class="fimg"><img src="images/palazzo-daniele/hero.jpg" alt="Palazzo Daniele, Gagliano del Capo" loading="lazy" decoding="async"></div>
+      <div class="fk">Folio</div>
+      <h3 class="serif">Palazzo Daniele</h3>
+      <span class="loc">Salento, Italy</span>
+    </a>
+    </div>
+  </div>
+</section>
+
+
+<a class="vane-band" href="folio.html" aria-label="VANE Folio, the long read" style="background-image:url('images/dexamenes/g1.jpg')">
+  <div class="vane-band__overlay"></div>
+  <div class="vane-band__content">
+    <h2 class="vane-band__title">Folio</h2>
+    <p class="vane-band__motto">The long read, a close reading of a single house</p>
+    <span class="vane-band__more">Enter the Folio &rarr;</span>
+  </div>
+</a>
+
+<section class="credo" id="credo">
+  <div class="wrap">
+    <p><span class="q">"</span>If a place is here, it's worth your time and money. If it's missing, it didn't clear our bar.<span class="q">"</span></p>
+    <div class="label">How we select</div>
+  </div>
+</section>
+
+<section class="news wrap" id="join">
+  <div class="label">Newsletter</div>
+  <h2 class="serif" style="font-weight:300;font-size:clamp(24px,3.2vw,34px);margin-top:14px">One selection at a time, in your inbox.</h2>
+  <form class="form" id="subForm" novalidate>
+    <div class="row">
+      <input type="email" id="subEmail" name="email" placeholder="Your email" autocomplete="email" required>
+      <button type="submit" id="subBtn">Subscribe →</button>
+    </div>
+    <label class="consent" for="subConsent"><input type="checkbox" id="subConsent" required><span>I agree to receive occasional emails from VANE, new selections and notes. No spam; unsubscribe anytime.</span></label>
+    <input type="text" name="company" id="subHp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <p class="formmsg" id="subMsg" role="status" aria-live="polite"></p>
+  </form>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <div class="brand" style="font-size:16px">VANE<span class="dot">.</span></div>
+    <div class="note">We select what's worth your time and money. First-hand where we can, carefully reported where we can't, and always disclosed. It's here because we judged it, not because it paid.</div>
+    <div class="label"><a href="#join" style="color:inherit">Newsletter</a> &middot; <a href="concierge.html" style="color:inherit">Plan With Me</a> &middot; <a href="radar.html" style="color:inherit">Radar</a> &middot; <a href="folio.html" style="color:inherit">Folio</a> &middot; <a href="agents.html" style="color:#D8362B">Agents</a> &middot; <a href="https://whatsapp.com/channel/0029VbDWo2jDeON1FaXrMZ25" target="_blank" rel="noopener" style="color:inherit">WhatsApp</a> &middot; © 2026</div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var items = Array.prototype.slice.call(document.querySelectorAll('#collection .item'));
+    var tabs  = Array.prototype.slice.call(document.querySelectorAll('.filter-in a'));
+    var count = document.getElementById('count');
+    var empty = document.getElementById('empty');
+    var DLAB = {table:'For the table', design:'For design', quiet:'For quiet', place:'For the place'};
+    // remember each card's primary (default) distinction label
+    items.forEach(function(it){ var t = it.querySelector('.tag'); if(t) it.setAttribute('data-orig-tag', t.textContent); });
+    function apply(f){
+      var n = 0, dist = DLAB[f];
+      items.forEach(function(it){
+        var tags = (it.getAttribute('data-tags')||'').split(' ');
+        var region = it.getAttribute('data-region')||'';
+        var show = (f==='all') || (region===f) || (tags.indexOf(f)>-1);
+        it.style.display = show ? '' : 'none';
+        var t = it.querySelector('.tag');
+        if(t){ t.textContent = (show && dist) ? dist : (it.getAttribute('data-orig-tag') || t.textContent); }
+        if(show) n++;
+      });
+      count.textContent = n + (n===1 ? ' selection' : ' selections');
+      empty.style.display = n===0 ? 'block' : 'none';
+    }
+    var grid = document.getElementById('cgrid');
+    var explore = document.getElementById('explore');
+    function expand(){
+      if(grid) grid.classList.remove('collapsed');
+      if(explore) explore.classList.add('done');
+      if(window.ScrollTrigger) window.ScrollTrigger.refresh();
+    }
+    var more = document.getElementById('exploreAll');
+    if(more) more.addEventListener('click', function(e){ e.preventDefault(); expand(); });
+    tabs.forEach(function(t){
+      t.addEventListener('click', function(e){
+        e.preventDefault();
+        expand();
+        tabs.forEach(function(x){ x.classList.remove('active'); });
+        t.classList.add('active');
+        apply(t.getAttribute('data-filter'));
+      });
+    });
+  })();
+</script>
+
+<script>
+  /* VANE bands — reliable scroll reveal (IntersectionObserver + staggered CSS, every browser, independent per band). Text is visible by default; only armed on capable desktops, so it can never stay hidden. */
+  (function(){
+    var bands = Array.prototype.slice.call(document.querySelectorAll('.vane-band'));
+    if(!bands.length) return;
+    var ok = window.matchMedia('(min-width:1024px) and (prefers-reduced-motion: no-preference)').matches;
+    if(!ok || !('IntersectionObserver' in window)) return; // leave everything fully visible
+    try{
+      bands.forEach(function(b){
+        var t = b.querySelector('.vane-band__title'); if(!t) return;
+        var text = t.textContent, n = 0; t.textContent = '';
+        text.split('').forEach(function(c,i){
+          var sp = document.createElement('span'); sp.className = 'ch'; sp.style.setProperty('--i', i); sp.textContent = c; t.appendChild(sp); n = i;
+        });
+        b.style.setProperty('--n', n + 1);
+        b.classList.add('armed');
+      });
+      // fire when the TITLE reaches the central band of the viewport (not when the tall band's edge enters),
+      // so the typing plays exactly as the title comes into view.
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){ var band = e.target.closest('.vane-band'); if(band){ band.classList.add('in'); io.unobserve(e.target); } }
+        });
+      }, { rootMargin:'-28% 0px -28% 0px', threshold:0 });
+      bands.forEach(function(b){ var t = b.querySelector('.vane-band__title'); if(t) io.observe(t); });
+    }catch(err){ bands.forEach(function(b){ b.classList.remove('armed'); }); }
+  })();
+</script>
+
+<script>
+  (function(){
+    // Google Apps Script web-app URL (writes each signup to the VANE Subscribers sheet in Drive).
+    var SUBSCRIBE_ENDPOINT = "https://script.google.com/macros/s/AKfycbxIVbzkuRNBJrg4SLNLdIJKEN4v_RXg8q4Aqu_1uiOEfIfvgoFJ700EQoXoILa2PU1O/exec";
+    var f = document.getElementById('subForm');
+    if(!f) return;
+    var email   = document.getElementById('subEmail');
+    var consent = document.getElementById('subConsent');
+    var hp      = document.getElementById('subHp');
+    var msg     = document.getElementById('subMsg');
+    var btn     = document.getElementById('subBtn');
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    function set(t, cls){ msg.textContent = t; msg.className = 'formmsg' + (cls ? ' ' + cls : ''); }
+    f.addEventListener('submit', function(e){
+      e.preventDefault();
+      if(hp.value) return;                       // honeypot: silently drop bots
+      var addr = (email.value || '').trim();
+      if(!EMAIL_RE.test(addr)){ set('Please enter a valid email address.', 'err'); email.focus(); return; }
+      if(!consent.checked){ set('Please tick the box to confirm you agree.', 'err'); return; }
+      if(!SUBSCRIBE_ENDPOINT){ set('Subscriptions open shortly, please check back.', 'err'); return; }
+      btn.disabled = true; set('Subscribing…');
+      var body = new URLSearchParams({ email: addr, consent: 'yes', source: 'vanehotels.com', page: location.pathname });
+      fetch(SUBSCRIBE_ENDPOINT, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: body.toString() })
+        .then(function(){ f.reset(); set("You're on the list. Welcome to VANE.", 'ok'); })
+        .catch(function(){ set('Something went wrong, please try again.', 'err'); })
+        .then(function(){ btn.disabled = false; });
+    });
+  })();
+</script>
+
+<!-- VANE-MOTION-START -->
+<link rel="stylesheet" href="/css/vane-motion.css">
+<script defer src="/vendor/gsap.min.js"></script>
+<script defer src="/vendor/ScrollTrigger.min.js"></script>
+<script defer src="/vendor/SplitText.min.js"></script>
+<script defer src="/vendor/lenis.min.js"></script>
+<script defer src="/js/vane-motion.js"></script>
+<!-- VANE-MOTION-END -->
+<script defer src="/js/vane-nav.js"></script>
+</body>
+</html>
